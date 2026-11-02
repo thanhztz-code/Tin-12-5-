@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ôn luyện Tin học 12 - Giữa kì 1</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--bg:#18181b;--cd:#27272a;--ln:#3f3f46;--tx:#f4f4f5;--mu:#a1a1aa;--or:#ff9f1c;--ob:#4f3e2b;--ok:#22c55e;--bd:#ef4444}
+html,body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body{padding:env(safe-area-inset-top) 0 50px}
+body.inquiz{padding-bottom:120px}
+#app{max-width:780px;margin:0 auto;padding:10px 12px}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.mu{color:var(--mu)}
+.tabs{display:flex;gap:8px;overflow-x:auto;margin-bottom:12px}
+.tab{flex:1 0 auto;padding:12px 14px;border:1px solid var(--ln);border-radius:16px;background:var(--cd);font-weight:600;white-space:nowrap}
+.on{border-color:var(--or)!important;background:var(--ob)!important;color:var(--or)}
+.card{background:var(--cd);border:1px solid var(--ln);border-radius:20px;padding:16px;margin-bottom:14px}
+.card h2{margin:0 0 12px;font-size:20px}
+.card h2 small{font-size:13px;color:var(--mu);font-weight:600}
+.inp{width:100%;padding:14px;border-radius:14px;border:1px solid var(--ln);background:var(--bg);font-size:17px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.mb{padding:14px 8px;border:1px solid var(--ln);border-radius:16px;background:var(--bg);text-align:center}
+.mb small{display:block;color:var(--mu)}
+.chk{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--ln);border-radius:16px;background:var(--bg);margin-bottom:10px;cursor:pointer}
+.chk input{width:22px;height:22px;accent-color:var(--or);flex:none}
+.chk .cn{margin-left:auto;color:var(--mu);white-space:nowrap;font-size:14px}
+.start,.resume{width:100%;padding:18px;border:0;border-radius:20px;background:var(--or);color:#1c1917;font-size:19px;font-weight:800;margin-bottom:14px}
+.resume{background:#16a34a;color:#fff;animation:pl 1.6s infinite}
+@keyframes pl{50%{box-shadow:0 0 0 6px rgba(34,197,94,.25)}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.chip,.sm{padding:10px 14px;border:1px solid var(--ln);border-radius:14px;background:var(--bg);font-size:15px}
+.sm.dg{color:var(--bd)}
+.qtop{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.qs{flex:1;font-weight:700;font-size:17px}
+.tmr{color:var(--or);font-weight:700;font-variant-numeric:tabular-nums}
+.ib{min-width:44px;height:44px;border:1px solid var(--ln);border-radius:12px;background:var(--cd);font-size:18px}
+.sec{color:var(--or);font-weight:700;font-size:14px;margin-bottom:4px}
+.qh{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.qh h3{margin:0;font-size:22px}
+.fb{padding:6px 10px;border:1px solid var(--ln);border-radius:12px;background:var(--bg);font-size:13px;margin-left:6px}
+.qt{white-space:pre-wrap;word-break:break-word;font-size:18px;margin:12px 0 6px}
+.qi{max-width:100%;border-radius:12px;margin:8px 0}
+.hint{color:var(--mu);font-style:italic;margin:6px 0 12px;font-size:15px}
+.opt{display:flex;align-items:center;gap:12px;padding:12px;border:2px solid var(--ln);border-radius:16px;margin-bottom:10px;background:var(--bg);cursor:pointer;min-height:56px}
+.ltr{flex:none;width:36px;height:36px;border-radius:50%;border:2px solid var(--mu);display:flex;align-items:center;justify-content:center;font-weight:700}
+.opt.sel{border-color:var(--or);background:var(--ob)}
+.opt.sel .ltr{background:var(--or);border-color:var(--or);color:#1c1917}
+.opt.ok{border-color:var(--ok);background:#14341f}
+.opt.ok .ltr{background:var(--ok);border-color:var(--ok);color:#052e12}
+.opt.bad{border-color:var(--bd);background:#3b1616}
+.opt.bad .ltr{background:var(--bd);border-color:var(--bd)}
+.opt.cut .ot{text-decoration:line-through;opacity:.4}
+.ot{flex:1;white-space:pre-wrap;word-break:break-word}
+.x{flex:none;background:none;border:0;color:var(--mu);font-size:16px;padding:8px}
+.st{border:2px solid var(--ln);border-radius:16px;padding:12px;margin-bottom:10px;background:var(--bg)}
+.st.ok{border-color:var(--ok)}
+.st.bad{border-color:var(--bd)}
+.stt{white-space:pre-wrap;word-break:break-word;margin-bottom:10px}
+.tfb{display:flex;gap:10px}
+.tb{flex:1;padding:12px;border:2px solid var(--ln);border-radius:14px;background:var(--cd);font-weight:700}
+.tb.on{border-color:var(--or);background:var(--ob);color:var(--or)}
+.rs{margin-top:8px;font-size:14px;font-weight:600}
+.show .tb,.show .opt{pointer-events:none}
+.sa{width:100%;padding:16px;font-size:24px;text-align:center;border-radius:16px;border:2px solid var(--ln);background:var(--bg);margin:10px 0}
+.ex{border-left:4px solid var(--or);background:var(--bg);padding:10px 12px;border-radius:10px;margin-top:12px;white-space:pre-wrap}
+.note{margin-top:12px}
+.note textarea{width:100%;padding:10px;border-radius:12px;border:1px solid var(--ln);background:var(--bg);margin-top:4px}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--cd);border-top:1px solid var(--ln);padding:10px 12px calc(24px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-between;gap:10px}
+.bl{display:flex;align-items:center;gap:8px;font-weight:700}
+.main{padding:14px 22px;border:0;border-radius:16px;background:var(--or);color:#1c1917;font-weight:800;font-size:17px;min-width:150px}
+.main:disabled{opacity:.4}
+.main.good{background:var(--ok)}
+.main.retry{background:#3b82f6;color:#fff}
+.pal{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.8);display:flex;align-items:center;justify-content:center;padding:16px}
+.pal>div{background:var(--cd);border-radius:20px;padding:16px;max-width:520px;width:100%;max-height:80vh;overflow:auto}
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(48px,1fr));gap:8px;margin:12px 0}
+.pg button{height:46px;border:1px solid var(--ln);border-radius:12px;background:var(--bg)}
+.pg button.dn{background:var(--ob);border-color:var(--or)}
+.pg button.cu{outline:2px solid #fff}
+#toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:70;max-width:92%;padding:12px 18px;border-radius:16px;background:#3f3f46;color:#fff;opacity:0;pointer-events:none;transition:opacity .15s;text-align:center}
+#toast.show{opacity:1}
+#toast.ok{background:#15803d}
+#toast.bad{background:#b91c1c}
+#nht{position:fixed;right:12px;bottom:calc(2px + env(safe-area-inset-bottom));z-index:60;font-weight:900;font-size:17px;color:var(--or);letter-spacing:2px;pointer-events:none}
+.row{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--ln);border-radius:14px;background:var(--bg);margin-bottom:8px}
+.row .g{flex:1;min-width:0}
+.row .g small{display:block;color:var(--mu)}
+.big{font-size:44px;font-weight:900;color:var(--or);text-align:center}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:13px;font-weight:700}
+.pill.ok{background:#14532d;color:#86efac}
+.pill.bad{background:#7f1d1d;color:#fca5a5}
+#padw{display:none;position:fixed;inset:0;z-index:40}
+#pad{position:absolute;inset:0;touch-action:none;cursor:crosshair}
+#padt{position:fixed;top:calc(8px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);z-index:45;display:flex;gap:6px;background:var(--cd);border:1px solid var(--ln);padding:6px;border-radius:14px}
+#padt button{width:40px;height:40px;border-radius:10px;border:2px solid var(--ln);background:var(--bg)}
+.crash{position:fixed;inset:0;z-index:99;background:#18181b;padding:20px;overflow:auto}
+.crash pre{white-space:pre-wrap;color:#fca5a5}
+.crash button{padding:14px 20px;border:0;border-radius:14px;background:var(--or);font-weight:800}
+.lbr{display:flex;gap:10px;align-items:center;padding:10px;border-bottom:1px solid var(--ln)}
+.lbr .rk{width:34px;text-align:center;font-weight:800;color:var(--or)}
+.lbr .g{flex:1;min-width:0}
+.lbr .g small{display:block;color:var(--mu)}
+.lbr .sc{font-weight:800;text-align:right}
+@media(max-width:480px){.main{min-width:130px;padding:14px 14px}.qt{font-size:17px}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="toast"></div>
+<div id="nht">NHT</div>
+<div id="padw"><canvas id="pad"></canvas></div>
+<div id="padt" style="display:none"><button data-c="#ff9f1c" style="color:#ff9f1c">●</button><button data-c="#38bdf8" style="color:#38bdf8">●</button><button data-c="#f4f4f5" style="color:#f4f4f5">●</button><button data-c="erase" title="Tẩy">🧽</button><button data-c="clear" title="Xóa trắng">🗑</button><button data-c="close" title="Đóng">✕</button></div>
+<script>
+(function () {
+'use strict';
+// =================================================================
+// DÁN LINK FIREBASE REALTIME DATABASE CỦA BẠN VÀO GIỮA 2 DẤU NHÁY KÉP BÊN DƯỚI:
+const FIREBASE_URL = "https://gdqp-12-15lan1-default-rtdb.asia-southeast1.firebasedatabase.app/";
+// =================================================================
+const LB_PATH = '/leaderboard_tin12_gk1';
+const DB_NAME = 'NHT_Tin12_GK1';
+const examData = [{"id": 1, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 1", "type": "single", "question": "AI hỗ trợ lĩnh vực tài chính, ngân hàng phân tích và xử lí dữ liệu hiệu quả để đạt được mục tiêu nào?", "image": "", "options": ["Tối ưu hóa quy trình tưới tiêu.", "Hỗ trợ quyết định đầu tư, phát hiện và ngăn chặn gian lận.", "Sản xuất các thiết bị máy tính phần cứng.", "Chẩn đoán và đưa ra hướng điều trị lâm sàng."], "correct": 1, "explanation": ""}, {"id": 2, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 1", "type": "single", "question": "Giao thức nào có vai trò quy định các hoạt động liên quan đến việc gửi thư điện tử?", "image": "", "options": ["IMAP.", "POP3.", "HTTP.", "SMTP."], "correct": 3, "explanation": ""}, {"id": 3, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 1", "type": "single", "question": "Thư mục Public trên hệ điều hành Windows mặc định KHÔNG chứa thư mục con nào sau đây?", "image": "", "options": ["Public Music.", "Public Documents.", "Public System Files.", "Public Pictures."], "correct": 2, "explanation": ""}, {"id": 4, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 1", "type": "single", "question": "Mạng viễn thông sử dụng thiết bị nào sau đây để chuyển tiếp dữ liệu qua Internet?", "image": "", "options": ["Bàn phím cơ.", "Bộ định tuyến (router).", "Cáp UTP trực tiếp dài hàng nghìn kilômét", "Màn hình máy tính."], "correct": 1, "explanation": ""}, {"id": 5, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 1", "type": "single", "question": "Sóng vô tuyến điện thường được sử dụng để làm gì trong truyền tải mạng?", "image": "", "options": ["Kết nối các thiết bị lưu trữ ngoại vi.", "Mang dữ liệu trong cáp quang.", "Mang dữ liệu trong mạng không dây.", "Tăng tốc độ máy in cá nhân."], "correct": 2, "explanation": ""}, {"id": 6, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 1", "type": "single", "question": "Trong diễn đàn trực tuyến, nếu bị xúc phạm, thái độ đúng đắn nhất cần có là gì?", "image": "", "options": ["Biết giữ bình tĩnh và không sử dụng ngôn ngữ khiêu khích", "Kêu gọi bạn bè vào tấn công tập thể người đó.", "Xúc phạm lại đối phương bằng lời lẽ tương tự.", "Công khai thông tin cá nhân của người đó lên mạng."], "correct": 0, "explanation": ""}, {"id": 7, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 1", "type": "single", "question": "Dòng mã <meta charset = \"utf-8\"> nằm ở phần tử <head> dùng để làm gì?", "image": "", "options": ["Tải phông chữ (font) tiếng Việt.", "Thay đổi màu nền của trình duyệt", "Mô tả cách mã hoá văn bản trên trang web theo mã UTF-8.", "Thiết lập kích thước chữ mặc định."], "correct": 2, "explanation": ""}, {"id": 8, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 1", "type": "single", "question": "Khi nhìn bên ngoài, rất khó phân biệt được switch và hub. Vậy điểm khác nhau cơ bản giữa chúng nằm ở đâu?", "image": "", "options": ["Số lượng cổng mạng.", "Cách thức hoạt động.", "Nguồn điện sử dụng.", "Màu sắc thiết bị."], "correct": 1, "explanation": ""}, {"id": 9, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 1", "type": "single", "question": "\"Cảm thông với người khác và cố gắng đặt mình vào hoàn cảnh của họ\" thuộc về khía cạnh nào của ứng xử nhân văn?", "image": "", "options": ["Tôn trọng.", "Thấu hiểu.", "Lịch sự.", "Bảo mật."], "correct": 1, "explanation": ""}, {"id": 10, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 1", "type": "single", "question": "Theo nội dung văn bản, ngoài làm thơ, soạn nhạc, viết thư, ChatGPT còn có khả năng nào liên quan đến máy tính?", "image": "", "options": ["Sửa lỗi trong lập trình.", "Sửa chữa bo mạch chủ.", "Sản xuất chip bán dẫn.", "Tự động nâng cấp hệ điều hành."], "correct": 0, "explanation": ""}, {"id": 11, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 1", "type": "single", "question": "Ban đầu, hệ chuyên gia là chương trình máy tính được thiết kế dựa trên cơ sở nào?", "image": "", "options": ["Các thuật toán tạo sinh văn bản tự động", "Các luật suy diễn và tri thức của chuyên gia.", "Dữ liệu ngẫu nhiên từ mạng xã hội.", "Mô phỏng bộ não con người và robot."], "correct": 1, "explanation": ""}, {"id": 12, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 1", "type": "single", "question": "Lợi ích của việc TCP cắt nhỏ dữ liệu thành nhiều gói tin là gì?", "image": "", "options": ["Tiêu diệt virus có thể bám vào dữ liệu", "Cho phép nhiều cuộc truyền khác nhau được thực hiện xen kẽ, tận dụng đường truyền.", "Giảm hoàn toàn dung lượng lưu trữ của máy tính.", "Tăng độ bảo mật bằng cách giấu dữ liệu đi."], "correct": 1, "explanation": ""}, {"id": 13, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 1", "type": "single", "question": "Chia sẻ tài nguyên trên mạng cục bộ mang lại quyền lợi gì cho người dùng từ máy tính khác?", "image": "", "options": ["Có thể \"nhìn thấy\" và sử dụng tài nguyên trên một máy tính khác trong mạng.", "Có thể lấy cắp dữ liệu mà không để lại dấu vết", "Có thể tắt nguồn máy tính của người khác từ xa", "Có thể cài đặt lại hệ điều hành của máy chủ."], "correct": 0, "explanation": ""}, {"id": 14, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 1", "type": "single", "question": "Khi người dùng nhấn phím Enter để xuống dòng trong phần mềm soạn thảo HTML, trình duyệt web sẽ phản hồi ra sao?", "image": "", "options": ["Trình duyệt nhận diện thành lệnh kết thúc tệp.", "Trình duyệt tự động chuyển sang trang mới.", "Trình duyệt hiển thị một đường kẻ ngang.", "Trình duyệt web không nhận biết dấu xuống dòng đó."], "correct": 3, "explanation": ""}, {"id": 15, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 1", "type": "single", "question": "HTML là cụm từ viết tắt của tiếng Anh nào sau đây?", "image": "", "options": ["Hyperlink Text Management Logic.", "Hypertext Machine Language.", "Hypertext Markup Language.", "Home Tool Markup Language."], "correct": 2, "explanation": ""}, {"id": 16, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 1", "type": "single", "question": "Việc cửa ra vào siêu thị tự động mở khi có người tới gần có được coi là ứng dụng AI không?", "image": "", "options": ["Không, đây chỉ là tự động hoá đơn thuần.", "Có, vì nó tự động ra quyết định.", "Không, vì nó thuộc hệ chuyên gia.", "Có, vì nó nhận diện được con người."], "correct": 0, "explanation": ""}, {"id": 17, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 1", "type": "single", "question": "Để huỷ bỏ chia sẻ hoàn toàn một thư mục đang được chia sẻ, ta vào cửa sổ Advanced Sharing và làm thao tác gì?", "image": "", "options": ["Huỷ dấu tích ở ô \"Share this folder\".", "Xóa luôn thư mục gốc.", "Đổi tên thư mục thành \"Not Shared\".", "Nhấn nút Format."], "correct": 0, "explanation": ""}, {"id": 18, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 1", "type": "single", "question": "Công nghệ nào được sử dụng để xác minh chữ kí trong các giao dịch điện tử?", "image": "", "options": ["Xử lý tiếng nói", "Nhận dạng chữ viết tay.", "Nhận dạng khuôn mặt.", "Hệ chuyên gia."], "correct": 1, "explanation": ""}, {"id": 19, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 1", "type": "single", "question": "Yếu tố nào sau đây được coi là nhược điểm của giao tiếp qua tin nhắn hay thư điện tử?", "image": "", "options": ["Thiếu tín hiệu phi ngôn ngữ như nét mặt, ngôn ngữ cơ thể.", "Tốc độ truyền tin nhanh chóng.", "Tiết kiệm chi phí gọi điện thoại đường dài.", "Công cụ giao tiếp quá đa dạng gây khó sử dụng."], "correct": 0, "explanation": ""}, {"id": 20, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 1", "type": "single", "question": "Một trong những năng lực trí tuệ được thể hiện trong các phần mềm trợ lí ảo là gì?", "image": "", "options": ["Khả năng hiểu ngôn ngữ.", "Khả năng di chuyển bằng hai chân.", "Khả năng điều khiển hệ thống bánh xe nước.", "Khả năng phát hiện biển báo giao thông."], "correct": 0, "explanation": ""}, {"id": 21, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 1", "type": "single", "question": "Hệ thống nào có thể được coi là không gian mạng lớn nhất?", "image": "", "options": ["Tổng đài điện thoại cố định.", "Mạng nội bộ (LAN) của trường học.", "Các trang thương mại điện tử độc lập", "Internet."], "correct": 3, "explanation": ""}, {"id": 22, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 1", "type": "single", "question": "Quyết định sai lầm của AI do bị tấn công dữ liệu có thể dẫn đến nguy hại trực tiếp nào được nêu trong văn bản?", "image": "", "options": ["Chẩn đoán sai tình trạng bệnh hoặc ra quyết định tấn công mục tiêu dân sự.", "Làm sập toàn bộ hệ thống mạng xã hội toàn cầu.", "Xóa nhầm file nhạc của người dùng.", "Từ chối phục vụ khách hàng tại ngân hàng."], "correct": 0, "explanation": ""}, {"id": 23, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 1", "type": "single", "question": "Trong định tuyến tĩnh, nếu địa chỉ đích không có trong bảng hướng dẫn, router sẽ làm gì?", "image": "", "options": ["Gửi trả lại gói dữ liệu cho máy phát.", "Chuyển gói dữ liệu sang cổng mặc định.", "Hủy bỏ gói dữ liệu ngay lập tức.", "Tự động tính toán tuyến đường mới."], "correct": 1, "explanation": ""}, {"id": 24, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 1", "type": "single", "question": "Mạng có từ vài chục đến hàng trăm máy tính nên ưu tiên sử dụng thiết bị nào?", "image": "", "options": ["Hub.", "WAP.", "Switch.", "Dây cáp điện thoại."], "correct": 2, "explanation": ""}, {"id": 25, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 2", "type": "single", "question": "Biểu tượng của các thư mục được chia sẻ trên mạng trong File Browser có đặc điểm gì đặc trưng?", "image": "", "options": ["Có hình ổ khoá màu đỏ.", "Có hình chữ nhật màu xanh, tượng trưng cho dây cáp mạng.", "Có thêm biểu tượng lá chắn vàng.", "Bị làm mờ ẩn đi."], "correct": 1, "explanation": ""}, {"id": 26, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 2", "type": "single", "question": "Tại sao trong không gian mạng, người dùng lại gặp khó khăn trong việc đánh giá sự thật về người đối diện?", "image": "", "options": ["Vì video call luôn bị mờ và không có âm thanh.", "Vì hệ thống tự động kiểm duyệt mọi thông tin trước khi gửi.", "Vì người sử dụng có thể dễ dàng giấu mặt, tạo bản sao không đầy đủ hoặc giả mạo thông tin.", "Vì mọi người đều bắt buộc dùng tên thật."], "correct": 2, "explanation": ""}, {"id": 27, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 2", "type": "single", "question": "Tại sao nói ChatGPT cho thấy sự linh hoạt trong suy nghĩ và khả năng suy luận?", "image": "", "options": ["Vì nó đưa ra câu trả lời đa dạng dựa trên ngữ cảnh và yêu cầu cụ thể.", "Vì nó tự động kết nối với robot công nghiệp để lắp ráp máy móc.", "Vì nó từ chối trả lời các câu hỏi ngoài lĩnh vực lập trình.", "Vì nó chỉ đưa ra các câu trả lời cố định được lập trình sẵn."], "correct": 0, "explanation": ""}, {"id": 28, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 2", "type": "single", "question": "Nhiệm vụ trọng tâm của AI tạo sinh (Generative AI) là gì?", "image": "", "options": ["Quản lí và định tuyến luồng giao thông trên đường phố.", "Tiêu diệt virus sinh học trong y tế.", "Lắp ráp tự động phần cứng trong công nghiệp.", "Xây dựng thuật toán tạo nội dung (hình ảnh, âm thanh, văn bản) tự động."], "correct": 3, "explanation": ""}, {"id": 29, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 2", "type": "single", "question": "Ứng xử \"Lịch sự\" trong không gian mạng bao gồm việc tránh sử dụng loại ngôn từ nào?", "image": "", "options": ["Ngôn từ đúng mực, có văn hóa.", "Ngôn từ động viên, khích lệ.", "Ngôn từ nhạy cảm, lăng mạ, châm chọc, phỉ báng.", "Ngôn từ chuyên ngành được giải thích rõ ràng."], "correct": 2, "explanation": ""}, {"id": 30, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 2", "type": "single", "question": "Tại sao thử nghiệm kết hợp bộ não con người và \"bộ não\" robot lại mang tính rủi ro cao và gây tranh cãi?", "image": "", "options": ["Vì cơ thể con người không thể thích nghi với nguồn điện của robot.", "Vì robot sẽ đòi quyền công dân bình đẳng như con người.", "Vì chi phí thực hiện các thử nghiệm này quá đắt đỏ.", "Vì có nguy cơ công nghệ được sử dụng để kiểm soát hoặc thay đổi ý thức, hành vi con người."], "correct": 3, "explanation": ""}, {"id": 31, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 2", "type": "single", "question": "Nếu muốn người dùng trên mạng vừa có quyền xem vừa có quyền sửa thư mục chia sẻ, bạn phải cấp quyền gì?", "image": "", "options": ["Read.", "Edit Only.", "Execute.", "Read/Write."], "correct": 3, "explanation": ""}, {"id": 32, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 2", "type": "single", "question": "Router của các mạng gia đình thông thường kết nối ra nhà cung cấp dịch vụ Internet qua cổng nào?", "image": "", "options": ["Duy nhất 1 cổng LAN.", "Duy nhất 1 cổng WAN.", "Qua cáp VGA.", "Cổng USB."], "correct": 1, "explanation": ""}, {"id": 33, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 2", "type": "single", "question": "Các tệp văn bản thiết lập trang web thường có phần mở rộng mặc định là gì?", "image": "", "options": [".txt hoặc .pdf.", ".html hoặc .htm.", ".doc hoặc .docx.", ".xls hoặc .xlsx."], "correct": 1, "explanation": ""}, {"id": 34, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 2", "type": "single", "question": "Điểm khác biệt quan trọng giữa địa chỉ IP và địa chỉ MAC là gì?", "image": "", "options": ["Cả hai địa chỉ đều không thể thay đổi được.", "IP chỉ dùng trong mạng cục bộ, MAC dùng cho Internet.", "IP có thể thay đổi được khi gán lại, MAC gắn với phần cứng không đổi.", "IP có 6 byte, MAC có 4 byte."], "correct": 2, "explanation": ""}, {"id": 35, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 2", "type": "single", "question": "Khi tham gia thảo luận trên mạng xã hội, bước đầu tiên quan trọng trước khi đưa ra ý kiến của mình là gì?", "image": "", "options": ["Chuẩn bị sẵn các câu châm chọc.", "Thả biểu tượng cảm xúc phẫn nộ.", "Kiểm tra xem người viết là nam hay nữ.", "Đọc kĩ bài viết của người khác."], "correct": 3, "explanation": ""}, {"id": 36, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 2", "type": "single", "question": "Về bản chất, Wi-Fi là gì?", "image": "", "options": ["Một bộ tiêu chuẩn kĩ thuật truyền dữ liệu bằng sóng vô tuyến điện.", "Một loại cáp truyền tín hiệu quang học.", "Một hệ điều hành máy tính.", "Một loại bộ nhớ RAM cho điện thoại di động."], "correct": 0, "explanation": ""}, {"id": 37, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 2", "type": "single", "question": "Việc cửa ra vào siêu thị tự động mở khi có người tới gần có được coi là ứng dụng AI không?", "image": "", "options": ["Có, vì nó tự động ra quyết định.", "Không, đây chỉ là tự động hoá đơn thuần.", "Không, vì nó thuộc hệ chuyên gia.", "Có, vì nó nhận diện được con người."], "correct": 1, "explanation": ""}, {"id": 38, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 2", "type": "single", "question": "Để máy tính để bàn có thể kết nối Wi-Fi khi không được trang bị sẵn, người dùng cần làm gì?", "image": "", "options": ["Lắp thêm một bảng mạch mở rộng.", "Xóa bớt phần mềm diệt virus.", "Khởi động lại hệ điều hành nhiều lần.", "Đặt máy tính lại gần nguồn sáng."], "correct": 0, "explanation": ""}, {"id": 39, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 2", "type": "single", "question": "AI được sử dụng trong các trang trại thông minh nhằm theo dõi trực tiếp yếu tố nào?", "image": "", "options": ["Tiến độ học tập của từng học sinh.", "Sức đề kháng với dịch bệnh và thời tiết của vật nuôi, cây trồng.", "Biến động cổ phiếu trên thị trường chứng khoán.", "Chi phí sản xuất phương tiện giao thông."], "correct": 1, "explanation": ""}, {"id": 40, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 2", "type": "single", "question": "Để các nhóm dữ liệu không bị lẫn lộn giữa các ứng dụng đang chạy đồng thời, TCP sử dụng giải pháp nào?", "image": "", "options": ["Gán nhãn \"cổng ứng dụng\" (port) cho các gói dữ liệu chuyển đi.", "Bắt buộc các ứng dụng chạy luân phiên từng ứng dụng một.", "Sử dụng địa chỉ MAC ảo cho mỗi ứng dụng.", "Dùng cáp mạng riêng lẻ cho từng ứng dụng."], "correct": 0, "explanation": ""}, {"id": 41, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 2", "type": "single", "question": "Khả năng vận dụng logic và tri thức để đưa ra chẩn đoán tình trạng sức khoẻ của người bệnh thuộc đặc trưng nào của AI?", "image": "", "options": ["Khả năng nhận thức.", "Khả năng hiểu ngôn ngữ.", "Khả năng giải quyết vấn đề.", "Khả năng suy luận."], "correct": 3, "explanation": ""}, {"id": 42, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 2", "type": "single", "question": "Phần tử gốc của trang web thông thường bắt buộc chứa hai phần tử con trực tiếp nào?", "image": "", "options": ["<div> và <span>", "<head> và <body>", "<meta> và <title>", "<h1> và <p>"], "correct": 1, "explanation": ""}, {"id": 43, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 2", "type": "single", "question": "Nếu người dùng gõ nhiều dấu cách liên tiếp trong HTML, trình duyệt web sẽ xử lí thế nào khi hiển thị?", "image": "", "options": ["Máy sẽ chỉ hiểu và hiển thị là một dấu cách duy nhất.", "Máy sẽ tự động ngắt thành các đoạn văn mới.", "Máy sẽ bỏ qua hoàn toàn, không hiển thị khoảng trắng nào.", "Máy sẽ hiển thị đúng số lượng dấu cách đó."], "correct": 0, "explanation": ""}, {"id": 44, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 2", "type": "single", "question": "Việc ứng xử nhân văn trong không gian mạng sẽ tạo ra một môi trường mang tính chất gì?", "image": "", "options": ["Môi trường chỉ dành riêng cho giới trẻ.", "Môi trường an toàn, lành mạnh, tạo sự thoải mái và tin tưởng.", "Môi trường đầy áp lực và sự cạnh tranh khốc liệt.", "Môi trường kinh doanh thương mại không kiểm soát."], "correct": 1, "explanation": ""}, {"id": 45, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 2", "type": "single", "question": "Địa chỉ người gửi và người nhận trong thư điện tử có định dạng chuẩn nào?", "image": "", "options": ["<tên tài khoản>.<tên miền của máy chủ>", "<tên miền của máy chủ>@<tên tài khoản>", "<tên tài khoản>@<tên miền của máy chủ thư điện tử>", "<tên miền của máy chủ thư điện tử>/<tên tài khoản>"], "correct": 2, "explanation": ""}, {"id": 46, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 2", "type": "single", "question": "Tại sao mạng gia đình có ít thiết bị đầu cuối lại thường sử dụng hub?", "image": "", "options": ["Vì hub tốc độ đường truyền vượt trội hơn switch.", "Vì hub có tính năng bảo mật tốt hơn.", "Vì hub có thể tự động phát sóng Wi-Fi.", "Vì chi phí rẻ hơn rất nhiều so với một switch có cùng số cổng."], "correct": 3, "explanation": ""}, {"id": 47, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 2", "type": "single", "question": "Chức năng nào sau đây thường được hỗ trợ bởi các trợ lí ảo?", "image": "", "options": ["Gọi điện thoại theo tên có trong danh bạ bằng tiếng nói.", "Chẩn đoán các bệnh lý nhiễm trùng máu.", "Lái xe tự động trên cao tốc.", "Lắp ráp linh kiện điện tử."], "correct": 0, "explanation": ""}, {"id": 48, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 2", "type": "single", "question": "Tại sao việc chia sẻ tài nguyên luôn cần các cơ chế bảo mật và cấp phép?", "image": "", "options": ["Để thu phí người dùng khi họ truy cập vào tài nguyên.", "Để tăng tốc độ mạng Internet.", "Để đảm bảo máy tính không bao giờ bị tắt đột ngột.", "Vì dữ liệu có thể bị truy cập với mục đích xấu hay bị làm hỏng bởi một người dùng trên mạng."], "correct": 3, "explanation": ""}, {"id": 49, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 3", "type": "single", "question": "Ưu điểm nổi bật nhất khi soạn thảo tệp HTML qua các trang web hỗ trợ trực tuyến là gì?", "image": "", "options": ["Có thể quan sát ngay kết quả hiển thị trang web tại khung bên cạnh.", "Có thể xuất bản trực tiếp thành ứng dụng di động.", "Không cần phải kết nối Internet.", "Máy tính không cần cài đặt hệ điều hành."], "correct": 0, "explanation": ""}, {"id": 50, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 3", "type": "single", "question": "Việc cửa ra vào siêu thị tự động mở khi có người tới gần có được coi là ứng dụng AI không?", "image": "", "options": ["Có, vì nó tự động ra quyết định.", "Không, đây chỉ là tự động hoá đơn thuần.", "Có, vì nó nhận diện được con người.", "Không, vì nó thuộc hệ chuyên gia."], "correct": 1, "explanation": ""}, {"id": 51, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 3", "type": "single", "question": "Giao thức IP có hai nội dung chính là gì?", "image": "", "options": ["Kiểm tra lỗi và cấp phát ứng dụng.", "Đặt tên miền và thay thế địa chỉ số.", "Đánh số gói tin và xác nhận truyền.", "Cách đánh địa chỉ và định tuyến dữ liệu."], "correct": 3, "explanation": ""}, {"id": 52, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 3", "type": "single", "question": "Nếu muốn người dùng trên mạng vừa có quyền xem vừa có quyền sửa thư mục chia sẻ, bạn phải cấp quyền gì?", "image": "", "options": ["Edit Only.", "Read/Write.", "Execute.", "Read."], "correct": 1, "explanation": ""}, {"id": 53, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 3", "type": "single", "question": "Để hình thành thói quen ứng xử nhân văn, khi không đồng ý với ý kiến của người khác, ta nên làm gì?", "image": "", "options": ["Báo cáo (report) bài viết để gỡ bỏ.", "Dùng các từ ngữ công kích cá nhân để giành phần thắng.", "Đưa ra lí do và phản bác một cách lịch sự.", "Lập tức chặn (block) tài khoản của họ."], "correct": 2, "explanation": ""}, {"id": 54, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 3", "type": "single", "question": "Theo quy ước viết HTML, tên thẻ HTML có phân biệt chữ hoa, chữ thường không?", "image": "", "options": ["Có phân biệt rất nghiêm ngặt.", "Bắt buộc phải viết 100% bằng chữ In Hoa.", "Không phân biệt, nhưng mặc định viết chữ thường.", "Bắt buộc chữ cái đầu tiên phải viết hoa."], "correct": 2, "explanation": ""}, {"id": 55, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 3", "type": "single", "question": "Theo tài liệu, phần mềm IBM Watson for Oncology đã góp phần nâng cao hiệu quả trong lĩnh vực nào?", "image": "", "options": ["Điều trị ung thư trong y học.", "Dự đoán mùa vụ trong nông nghiệp.", "Phát hiện gian lận trong ngân hàng.", "Phát triển ô tô tự lái."], "correct": 0, "explanation": ""}, {"id": 56, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 3", "type": "single", "question": "Thiết bị nào sau đây KHÔNG thuộc danh sách thiết bị kết nối mạng được giới thiệu trong bài?", "image": "", "options": ["Thiết bị thu phát Wi-Fi.", "Bộ định tuyến (router).", "Bộ chia tín hiệu (hub).", "Bộ vi xử lý (CPU)."], "correct": 3, "explanation": ""}, {"id": 57, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 3", "type": "single", "question": "Nếu người dùng gõ nhiều dấu cách liên tiếp trong trình soạn thảo mã nguồn HTML, trình duyệt web sẽ xử lí thế nào khi hiển thị?", "image": "", "options": ["Máy sẽ bỏ qua hoàn toàn, không hiển thị khoảng trắng nào.", "Máy sẽ tự động ngắt thành các đoạn văn mới.", "Máy sẽ hiển thị đúng số lượng dấu cách đó.", "Máy sẽ chỉ hiểu và hiển thị là một dấu cách duy nhất."], "correct": 3, "explanation": ""}, {"id": 58, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 3", "type": "single", "question": "Quyết định sai lầm của AI do bị tấn công dữ liệu có thể dẫn đến nguy hại trực tiếp nào được nêu trong văn bản?", "image": "", "options": ["Từ chối phục vụ khách hàng tại ngân hàng.", "Chẩn đoán sai tình trạng bệnh hoặc ra quyết định tấn công mục tiêu dân sự.", "Xóa nhầm file nhạc của người dùng.", "Làm sập toàn bộ hệ thống mạng xã hội toàn cầu."], "correct": 1, "explanation": ""}, {"id": 59, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 3", "type": "single", "question": "Theo tài liệu, yếu tố nào có thể cản trở giao tiếp trực tuyến, gây trì hoãn hoặc gián đoạn?", "image": "", "options": ["Quá nhiều biểu tượng cảm xúc (emoji) trong tin nhắn.", "Các sự cố kĩ thuật như mất kết nối mạng và phần mềm không tương thích.", "Việc sử dụng mạng LAN thay vì mạng di động.", "Tốc độ gõ phím của người tham gia."], "correct": 1, "explanation": ""}, {"id": 60, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 3", "type": "single", "question": "Mạng có từ vài chục đến hàng trăm máy tính nên ưu tiên sử dụng thiết bị nào?", "image": "", "options": ["WAP.", "Hub.", "Dây cáp điện thoại.", "Switch."], "correct": 3, "explanation": ""}, {"id": 61, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 3", "type": "single", "question": "Khi có nhiều yêu cầu in từ các máy tính khác nhau gửi đến, máy chủ cung cấp dịch vụ in sẽ xử lí ra sao?", "image": "", "options": ["Trộn các tài liệu vào nhau và in ra cùng một lúc.", "Nhận yêu cầu, xếp thành hàng đợi và điều khiển máy in in lần lượt.", "Hủy toàn bộ yêu cầu để tránh quá tải.", "Báo lỗi và yêu cầu từng máy phải chờ máy trước in xong mới được gửi yêu cầu."], "correct": 1, "explanation": ""}, {"id": 62, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 3", "type": "single", "question": "Trí tuệ nhân tạo hẹp (AI yếu) được thiết kế để làm gì?", "image": "", "options": ["Thay thế hoàn toàn con người trong tương lai.", "Tự học và thích nghi với mọi môi trường.", "Thực hiện nhiều công việc đa dạng giống con người.", "Thực hiện một nhiệm vụ cụ thể."], "correct": 3, "explanation": ""}, {"id": 63, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 3", "type": "single", "question": "AIoT là thuật ngữ chỉ sự kết hợp giữa Trí tuệ nhân tạo (AI) và công nghệ nào?", "image": "", "options": ["Công nghệ sinh học.", "IoT (Internet vạn vật).", "Khoa học vũ trụ.", "Mạng xã hội."], "correct": 1, "explanation": ""}, {"id": 64, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 3", "type": "single", "question": "Rủi ro về an ninh, an toàn của AI phát sinh từ việc gì?", "image": "", "options": ["AI bị lợi dụng để xâm nhập hoặc tấn công thay đổi dữ liệu, mô hình.", "AI từ chối kết nối Internet khi cần thiết.", "AI tiêu diệt các phần mềm diệt virus trên máy tính.", "Robot AI di chuyển sai làn đường khi tự lái."], "correct": 0, "explanation": ""}, {"id": 65, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 3", "type": "single", "question": "Đặc điểm cơ bản của loại cáp mạng UTP thường dùng trong mạng LAN là gì?", "image": "", "options": ["Được làm hoàn toàn bằng sợi thuỷ tinh.", "Chỉ truyền được tín hiệu khi ngâm trong nước.", "Có bốn đôi dây xoắn kết nối qua giắc cắm RJ45.", "Có một sợi đồng duy nhất bên trong."], "correct": 2, "explanation": ""}, {"id": 66, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 3", "type": "single", "question": "Máy tính điều khiển xe tự lái sử dụng cảm biến và camera để phát hiện biển báo và người đi bộ là ví dụ cho khả năng nào?", "image": "", "options": ["Khả năng suy luận", "Khả năng hiểu ngôn ngữ.", "Khả năng nhận thức.", "Khả năng học."], "correct": 2, "explanation": ""}, {"id": 67, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 3", "type": "single", "question": "Tinh thần cốt lõi để đối xử với mọi người trong không gian mạng được khuyên là gì?", "image": "", "options": ["Ai làm sai thì phải chịu hình phạt thích đáng.", "Luôn nghi ngờ tất cả mọi thông tin nhận được.", "Không bao giờ tham gia vào các cuộc tranh luận.", "Đối xử với người khác theo cách mà mình muốn được đối xử."], "correct": 3, "explanation": ""}, {"id": 68, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 3", "type": "single", "question": "Để các nhóm dữ liệu không bị lẫn lộn giữa các ứng dụng đang chạy đồng thời (ví dụ: sao chép tệp và chat), TCP sử dụng giải pháp nào?", "image": "", "options": ["Dùng cáp mạng riêng lẻ cho từng ứng dụng.", "Gán nhãn \"cổng ứng dụng\" (port) cho các gói dữ liệu chuyển đi.", "Bắt buộc các ứng dụng chạy luân phiên từng ứng dụng một.", "Sử dụng địa chỉ MAC ảo cho mỗi ứng dụng."], "correct": 1, "explanation": ""}, {"id": 69, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 3", "type": "single", "question": "Hậu quả trực tiếp của việc xung đột tín hiệu và phải truyền lại dữ liệu là gì?", "image": "", "options": ["Làm giảm hiệu quả của mạng.", "Máy tính bị nhiễm virus.", "Thiết bị mạng bị hỏng vật lí.", "Làm tăng bộ nhớ máy tính."], "correct": 0, "explanation": ""}, {"id": 70, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 3", "type": "single", "question": "Do các gói tin có thể đi theo đường khác nhau và đến nơi lộn xộn, TCP làm cách nào để máy nhận ráp lại cho đúng thứ tự?", "image": "", "options": ["Căn cứ vào màu sắc của gói tin.", "Căn cứ vào thời gian máy nhận nhận được gói tin.", "Máy nhận sẽ ráp ngẫu nhiên cho đến khi ra kết quả có ý nghĩa.", "TCP yêu cầu các gói dữ liệu được đánh số theo từng ứng dụng."], "correct": 3, "explanation": ""}, {"id": 71, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 3", "type": "single", "question": "Theo tài liệu, tài nguyên của một máy tính trên mạng có thể là gì?", "image": "", "options": ["Dữ liệu, phần mềm hay thiết bị.", "Bàn phím và màn hình cá nhân.", "Chỉ bao gồm dữ liệu văn bản.", "Chỉ bao gồm các thiết bị kết nối như router và hub."], "correct": 0, "explanation": ""}, {"id": 72, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 3", "type": "single", "question": "Quy tắc cơ bản về trang phục và bối cảnh khi thực hiện cuộc gọi video là gì?", "image": "", "options": ["Chỉ cần tắt camera là được.", "Có thể mặc đồ ngủ vì chỉ là không gian ảo.", "Bắt buộc phải mặc đồng phục công sở.", "Mặc quần áo lịch sự và không để lộ vật dụng/cảnh quan không phù hợp."], "correct": 3, "explanation": ""}, {"id": 73, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 4", "type": "single", "question": "Theo tài liệu, phần mềm IBM Watson for Oncology đã góp phần nâng cao hiệu quả trong lĩnh vực nào?", "image": "", "options": ["Phát triển ô tô tự lái.", "Dự đoán mùa vụ trong nông nghiệp.", "Điều trị ung thư trong y học.", "Phát hiện gian lận trong ngân hàng"], "correct": 2, "explanation": ""}, {"id": 74, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 4", "type": "single", "question": "Khái niệm \"không gian mạng\" được hiểu cơ bản là gì?", "image": "", "options": ["Là khoảng không gian vật lí ngoài vũ trụ.", "Là một phần mềm diệt virus trên điện thoại di động.", "Là mạng lưới giao thông đường bộ.", "Là môi trường được tạo ra nhờ sử dụng mạng máy tính."], "correct": 3, "explanation": ""}, {"id": 75, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 4", "type": "single", "question": "Việc chia sẻ thông tin trao đổi riêng tư giữa hai người cho một bên thứ ba khi chưa được phép là hành vi:", "image": "", "options": ["Tuân thủ quy tắc ứng xử trên mạng xã hội.", "Không tôn trọng quyền riêng tư của người nhận.", "Mở rộng mạng lưới quan hệ xã hội", "Thể hiện sự cởi mở trong giao tiếp."], "correct": 1, "explanation": ""}, {"id": 76, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 4", "type": "single", "question": "Để huỷ bỏ chia sẻ hoàn toàn một thư mục đang được chia sẻ, ta vào cửa sổ Advanced Sharing và làm thao tác gì?", "image": "", "options": ["Nhấn nút Format.", "Huỷ dấu tích ở ô \"Share this folder\".", "Xóa luôn thư mục gốc.", "Đổi tên thư mục thành \"Not Shared\"."], "correct": 1, "explanation": ""}, {"id": 77, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 4", "type": "single", "question": "Tại sao thử nghiệm kết hợp bộ não con người và \"bộ não\" robot lại mang tính rủi ro cao và gây tranh cãi?", "image": "", "options": ["Vì cơ thể con người không thể thích nghi với nguồn điện của robot.", "Vì có nguy cơ công nghệ được sử dụng để kiểm soát hoặc thay đổi ý thức, hành vi con người.", "Vì robot sẽ đòi quyền công dân bình đẳng như con người.", "Vì chi phí thực hiện các thử nghiệm này quá đắt đỏ."], "correct": 1, "explanation": ""}, {"id": 78, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 4", "type": "single", "question": "Khi bật (On) mục \"Public folder sharing\", điều gì sẽ xảy ra?", "image": "", "options": ["Mọi người dùng trên mạng có thể nhìn thấy toàn bộ những gì có trong thư mục Public.", "Máy tính sẽ tự động tắt nguồn sau 5 phút.", "Ổ đĩa C: sẽ tự động bị xóa toàn bộ dữ liệu.", "Toàn bộ thư mục trên Desktop bị công khai lên Internet."], "correct": 0, "explanation": ""}, {"id": 79, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 4", "type": "single", "question": "Để máy tính để bàn có thể kết nối Wi-Fi khi không được trang bị sẵn, người dùng cần làm gì?", "image": "", "options": ["Khởi động lại hệ điều hành nhiều lần.", "Xóa bớt phần mềm diệt virus.", "Đặt máy tính lại gần nguồn sáng.", "Lắp thêm một bảng mạch mở rộng."], "correct": 3, "explanation": ""}, {"id": 80, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 4", "type": "single", "question": "Việc chia sẻ tài nguyên trong mạng cục bộ phục vụ mục đích chủ yếu nào?", "image": "", "options": ["Kinh doanh dữ liệu trên Internet.", "Phát trực tiếp video cho toàn cầu xem.", "Công việc nội bộ của tổ chức sở hữu mạng cục bộ đó.", "Giải trí cá nhân và chia sẻ ảnh gia đình."], "correct": 2, "explanation": ""}, {"id": 81, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 4", "type": "single", "question": "Cấu trúc đầy đủ của một phần tử HTML (element) thông thường gồm những thành phần nào?", "image": "", "options": ["Tên miền và đường dẫn hình ảnh.", "Thẻ bắt đầu, nội dung, thẻ kết thúc.", "Chỉ có nội dung văn bản.", "Thẻ đóng và các thuộc tính màu sắc."], "correct": 1, "explanation": ""}, {"id": 82, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 4", "type": "single", "question": "Hiện tượng xung đột (collision) tín hiệu trong mạng LAN xảy ra khi nào?", "image": "", "options": ["Khi nhiều máy đồng thời gửi dữ liệu lên đường truyền chung.", "Khi cài đặt sai múi giờ trên máy tính.", "Khi máy tính tắt nguồn đột ngột.", "Khi cáp mạng bị đứt rời hoàn toàn."], "correct": 0, "explanation": ""}, {"id": 83, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 4", "type": "single", "question": "Ứng dụng AI nào giúp tự động gán tên những người quen trong ảnh trên Facebook?", "image": "", "options": ["Nhận dạng chữ viết tay.", "Trợ lí ảo.", "Dịch máy", "Nhận dạng khuôn mặt."], "correct": 3, "explanation": ""}, {"id": 84, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 4", "type": "single", "question": "Thẻ <p> trong ngôn ngữ HTML mang ý nghĩa định dạng cho nội dung nào?", "image": "", "options": ["Tiêu đề lớn nhất.", "Đoạn văn bản hoàn chỉnh.", "Một đường kẻ ngang.", "Chèn một hình ảnh."], "correct": 1, "explanation": ""}, {"id": 85, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 4", "type": "single", "question": "Dữ liệu trên đường truyền mạng trong mạng cục bộ (LAN) được mang bởi loại tín hiệu vật lí nào?", "image": "", "options": ["Sóng vô tuyến điện.", "Dao động điện.", "Sóng siêu âm.", "Tín hiệu ánh sáng."], "correct": 1, "explanation": ""}, {"id": 86, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 4", "type": "single", "question": "Tính chất của tín hiệu truyền trong mạng LAN là loại tín hiệu gì?", "image": "", "options": ["Tín hiệu số (digital) thể hiện các giá trị logic 0 hay 1.", "Sóng âm thanh 3D", "Tín hiệu quang học.", "Tín hiệu tương tự (analog)."], "correct": 0, "explanation": ""}, {"id": 87, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 4", "type": "single", "question": "Khi người dùng nhấn phím Enter để xuống dòng trong phần mềm soạn thảo HTML, trình duyệt web sẽ phản hồi ra sao?", "image": "", "options": ["Trình duyệt web không nhận biết dấu xuống dòng đó.", "Trình duyệt hiển thị một đường kẻ ngang.", "Trình duyệt nhận diện thành lệnh kết thúc tệp.", "Trình duyệt tự động chuyển sang trang mới."], "correct": 0, "explanation": ""}, {"id": 88, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 4", "type": "single", "question": "Ban đầu, hệ chuyên gia là chương trình máy tính được thiết kế dựa trên cơ sở nào?", "image": "", "options": ["Các luật suy diễn và tri thức của chuyên gia.", "Mô phỏng bộ não con người và robot.", "Dữ liệu ngẫu nhiên từ mạng xã hội", "Các thuật toán tạo sinh văn bản tự động."], "correct": 0, "explanation": ""}, {"id": 89, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 4", "type": "single", "question": "Đâu là một trong những ưu điểm đáng kể nhất của giao tiếp trong không gian mạng?", "image": "", "options": ["Hoàn toàn không tốn kém chi phí mua thiết bị.", "Tăng cường khả năng giao tiếp phi ngôn ngữ bằng xúc giác.", "Thực hiện thuận tiện mọi nơi, mọi lúc miễn là có kết nối mạng.", "Loại bỏ hoàn toàn nguy cơ bị đánh cắp thông tin cá nhân."], "correct": 2, "explanation": ""}, {"id": 90, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 4", "type": "single", "question": "Khi máy chủ thư điện tử xử lí thư đến mà không tìm thấy địa chỉ người nhận tồn tại, nó sẽ làm gì?", "image": "", "options": ["Tạo một thư báo lỗi chuyển ngược lại người gửi.", "Chuyển thư đó sang thư rác của máy chủ.", "Xóa ngay lập tức mà không thông báo.", "Tự động sửa địa chỉ người nhận cho đúng."], "correct": 0, "explanation": ""}, {"id": 91, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 4", "type": "single", "question": "Trong định tuyến tĩnh, nếu địa chỉ đích không có trong bảng hướng dẫn, router sẽ làm gì?", "image": "", "options": ["Chuyển gói dữ liệu sang cổng mặc định.", "Hủy bỏ gói dữ liệu ngay lập tức.", "Tự động tính toán tuyến đường mới.", "Gửi trả lại gói dữ liệu cho máy phát."], "correct": 0, "explanation": ""}, {"id": 92, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 4", "type": "single", "question": "Việc gửi những tin nhắn an ủi kịp thời hoặc lời động viên chân thành là biểu hiện của khía cạnh nào?", "image": "", "options": ["Cẩn trọng ngôn từ.", "Tranh luận.", "Kiểm tra hành vi.", "Hỗ trợ."], "correct": 3, "explanation": ""}, {"id": 93, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 4", "type": "single", "question": "Trong công nghiệp, các robot và hệ thống tự động hoá tích hợp AI có ưu điểm nổi bật nào?", "image": "", "options": ["Thực hiện nhiều công việc lặp đi lặp lại một cách hiệu quả.", "Giao tiếp với con người bằng ngôn ngữ tự nhiên xuất sắc.", "Khả năng tự sáng tác âm nhạc nghệ thuật.", "Tự động dự đoán điều kiện thời tiết."], "correct": 0, "explanation": ""}, {"id": 94, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 4", "type": "single", "question": "Việc cửa ra vào siêu thị tự động mở khi có người tới gần có được coi là ứng dụng AI không?", "image": "", "options": ["Có, vì nó nhận diện được con người.", "Không, đây chỉ là tự động hoá đơn thuần.", "Có, vì nó tự động ra quyết định.", "Không, vì nó thuộc hệ chuyên gia."], "correct": 1, "explanation": ""}, {"id": 95, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 4", "type": "single", "question": "Địa chỉ IPv4 bao gồm mấy byte?", "image": "", "options": ["32 byte.", "6 byte", "4 byte.", "8 byte."], "correct": 2, "explanation": ""}, {"id": 96, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 4", "type": "single", "question": "Một trong những khả năng tích hợp AI của Robot Asimo là gì?", "image": "", "options": ["Chẩn đoán y tế chuyên sâu.", "Lái xe ô tô trên đường phố.", "Thực hiện phẫu thuật cơ khí.", "Nhận dạng hình ảnh bằng thị giác máy."], "correct": 3, "explanation": ""}, {"id": 97, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 5", "type": "single", "question": "Quy định đặc biệt nào áp dụng cho nội dung nằm bên trong phần tử <title>?", "image": "", "options": ["Bắt buộc phải được định dạng in nghiêng.", "Cho phép nhúng mã lập trình JavaScript bên trong.", "Phải là văn bản thường và không được phép chứa phần tử con.", "Phải chứa hình ảnh đại diện của trang web."], "correct": 2, "explanation": ""}, {"id": 98, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 5", "type": "single", "question": "Nhiệm vụ trọng tâm của AI tạo sinh (Generative AI) là gì?", "image": "", "options": ["Lắp ráp tự động phần cứng trong công nghiệp.", "Quản lí và định tuyến luồng giao thông trên đường phố.", "Xây dựng thuật toán tạo nội dung (hình ảnh, âm thanh, văn bản) tự động.", "Tiêu diệt virus sinh học trong y tế."], "correct": 2, "explanation": ""}, {"id": 99, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 5", "type": "single", "question": "Để cho phép các máy tính khác trong mạng nhìn thấy máy tính của mình, cần bật (On) tính năng nào?", "image": "", "options": ["Windows Update.", "Network discovery.", "Password protected sharing.", "Bluetooth sharing."], "correct": 1, "explanation": ""}, {"id": 100, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 5", "type": "single", "question": "Ứng xử nhân văn trong không gian mạng được thể hiện qua các khía cạnh quan trọng nào?", "image": "", "options": ["Chia sẻ, quảng cáo, châm chọc, nổi tiếng.", "Cạnh tranh, giấu giếm, trục lợi, lừa đảo.", "Tôn trọng, lịch sự, thấu hiểu, hỗ trợ.", "Nhanh nhẹn, phán xét, tranh cãi, thắng thua."], "correct": 2, "explanation": ""}, {"id": 101, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 5", "type": "single", "question": "Một trong những nguy cơ lớn nhất về bảo mật khi giao tiếp trên không gian mạng là gì?", "image": "", "options": ["Điện thoại bị nóng máy nhanh chóng.", "Bị lộ mật khẩu truy cập, xâm phạm quyền riêng tư, tấn công mạng.", "Cáp mạng bị đứt liên tục.", "Dịch vụ Internet tính phí quá cao."], "correct": 1, "explanation": ""}, {"id": 102, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 5", "type": "single", "question": "Nếu người dùng gõ nhiều dấu cách liên tiếp trong trình soạn thảo mã nguồn HTML, trình duyệt web sẽ xử lí thế nào khi hiển thị?", "image": "", "options": ["Máy sẽ chỉ hiểu và hiển thị là một dấu cách duy nhất.", "Máy sẽ tự động ngắt thành các đoạn văn mới.", "Máy sẽ hiển thị đúng số lượng dấu cách đó.", "Máy sẽ bỏ qua hoàn toàn, không hiển thị khoảng trắng nào."], "correct": 0, "explanation": ""}, {"id": 103, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 5", "type": "single", "question": "Việc thiếu các tín hiệu phi ngôn ngữ có thể dẫn đến hậu quả gì trong giao tiếp trực tuyến?", "image": "", "options": ["Gây khó khăn trong truyền đạt cảm xúc và dẫn đến hiểu lầm.", "Khóa tài khoản của người sử dụng.", "Làm cho tin nhắn bị mã hóa không đọc được.", "Tiêu thụ nhiều dữ liệu mạng hơn."], "correct": 0, "explanation": ""}, {"id": 104, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 5", "type": "single", "question": "Nếu muốn người dùng trên mạng vừa có quyền xem vừa có quyền sửa thư mục chia sẻ, bạn phải cấp quyền gì?", "image": "", "options": ["Read.", "Edit Only.", "Read/Write.", "Execute."], "correct": 2, "explanation": ""}, {"id": 105, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 5", "type": "single", "question": "Quyết định sai lầm của AI do bị tấn công dữ liệu có thể dẫn đến nguy hại trực tiếp nào được nêu trong văn bản?", "image": "", "options": ["Chẩn đoán sai tình trạng bệnh hoặc ra quyết định tấn công mục tiêu dân sự.", "Xóa nhầm file nhạc của người dùng.", "Từ chối phục vụ khách hàng tại ngân hàng.", "Làm sập toàn bộ hệ thống mạng xã hội toàn cầu."], "correct": 0, "explanation": ""}, {"id": 106, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 5", "type": "single", "question": "Sự phát triển của AI gây ra \"Áp lực thất nghiệp\" chủ yếu là do đâu?", "image": "", "options": ["AI tiêu thụ quá nhiều điện năng của nhà máy.", "AI yêu cầu trả mức lương cao hơn con người.", "AI có khả năng tự động hoá nhiều công việc của con người.", "AI từ chối làm việc cùng con người."], "correct": 2, "explanation": ""}, {"id": 107, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 5", "type": "single", "question": "Về mặt công nghệ, khái niệm chính xác nhất mô tả mạng Internet là gì?", "image": "", "options": ["Là dịch vụ mạng xã hội và web.", "Là một mạng lưới các cáp quang toàn cầu.", "Là tên gọi chung của các phần mềm gửi và nhận thư điện tử.", "Là mạng thông tin toàn cầu hoạt động theo giao thức TCP/IP."], "correct": 3, "explanation": ""}, {"id": 108, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 5", "type": "single", "question": "Các tệp văn bản dùng để tạo ra trang web thực chất được gọi chung là gì?", "image": "", "options": ["Trang tính (Spreadsheet).", "Tệp thực thi (.exe).", "Trang nguồn hay mã nguồn.", "Bản thuyết trình (Presentation)."], "correct": 2, "explanation": ""}, {"id": 109, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 5", "type": "single", "question": "Tại sao giao thức Ethernet quy định không thể truyền một lượng tin dài không giới hạn giữa hai máy tính?", "image": "", "options": ["Để tiết kiệm chi phí dịch vụ cáp quang.", "Vì máy tính không thể lưu trữ lượng tin dài.", "Vì có thể làm quá tải máy nhận và cản trở các cuộc truyền khác.", "Để tránh việc dữ liệu bị nhiễm mã độc."], "correct": 2, "explanation": ""}, {"id": 110, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 5", "type": "single", "question": "Điểm khác biệt cơ bản giữa AI và tự động hoá thông thường là gì?", "image": "", "options": ["AI kết hợp các đặc trưng trí tuệ, trong khi tự động hoá chỉ lặp lại thao tác cố định.", "Tự động hoá được tích hợp cảm biến thông minh hơn AI.", "Tự động hoá có khả năng học và ra quyết định, còn AI thì không.", "Hệ thống tự động hoá có thể hiểu ngôn ngữ tự nhiên tốt hơn AI."], "correct": 0, "explanation": ""}, {"id": 111, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 5", "type": "single", "question": "Khi người dùng được cấp tài khoản truy cập và đánh giá là tin cậy, tường lửa sẽ phản ứng thế nào với việc truy cập tài nguyên?", "image": "", "options": ["Sẽ tự động ngắt kết nối mạng ngay lập tức.", "Sẽ khóa thiết bị lập tức.", "Không ngăn chặn việc truy cập tài nguyên.", "Sẽ yêu cầu quét virus 3 lần."], "correct": 2, "explanation": ""}, {"id": 112, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 5", "type": "single", "question": "Theo cách hiểu thông thường, AI là khả năng của máy tính có thể làm gì?", "image": "", "options": ["Tính toán các phép tính cơ bản.", "Tự động đóng mở cửa khi có người tới gần.", "Làm những công việc mang tính trí tuệ của con người.", "Làm những công việc mang tính cơ bắp của con người."], "correct": 2, "explanation": ""}, {"id": 113, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 5", "type": "single", "question": "Trên thiết bị iOS (iPhone, iPad), biểu tượng hình cái khoá bên cạnh một mạng Wi-Fi mang ý nghĩa gì?", "image": "", "options": ["Trạm thu phát Wi-Fi được bảo mật, cần mật khẩu mới kết nối được.", "Mạng Wi-Fi này đã bị hỏng, không dùng được.", "Máy điện thoại đang bị khoá tài khoản.", "Đường truyền cáp quang của mạng đó đã bị đứt."], "correct": 0, "explanation": ""}, {"id": 114, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 5", "type": "single", "question": "Modem có chức năng chính là gì?", "image": "", "options": ["Cấp điện năng cho toàn bộ hệ thống mạng LAN.", "In ấn tài liệu từ xa.", "Chuyển đổi tín hiệu số thành tín hiệu tương tự và ngược lại.", "Thay thế màn hình hiển thị nội dung."], "correct": 2, "explanation": ""}, {"id": 115, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 5", "type": "single", "question": "Trong định tuyến tĩnh, nếu địa chỉ đích không có trong bảng hướng dẫn, router sẽ làm gì?", "image": "", "options": ["Tự động tính toán tuyến đường mới.", "Gửi trả lại gói dữ liệu cho máy phát.", "Chuyển gói dữ liệu sang cổng mặc định.", "Hủy bỏ gói dữ liệu ngay lập tức."], "correct": 2, "explanation": ""}, {"id": 116, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 5", "type": "single", "question": "Trước khi đăng bài hoặc chia sẻ thông tin lên mạng xã hội, người dùng cần làm gì để tránh làm tổn hại danh tiếng người khác?", "image": "", "options": ["Gắn thẻ (tag) thật nhiều người vào bài viết.", "Cài đặt chế độ chia sẻ ẩn danh.", "Đọc kĩ nội dung và kiểm tra tính chính xác của nó.", "Chỉnh sửa hình ảnh cho bắt mắt hơn."], "correct": 2, "explanation": ""}, {"id": 117, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 5", "type": "single", "question": "AI được sử dụng trong các trang trại thông minh nhằm theo dõi trực tiếp yếu tố nào?", "image": "", "options": ["Sức đề kháng với dịch bệnh và thời tiết của vật nuôi, cây trồng.", "Tiến độ học tập của từng học sinh.", "Biến động cổ phiếu trên thị trường chứng khoán.", "Chi phí sản xuất phương tiện giao thông."], "correct": 0, "explanation": ""}, {"id": 118, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 5", "type": "single", "question": "Để máy tính để bàn có thể kết nối Wi-Fi khi không được trang bị sẵn, người dùng cần làm gì?", "image": "", "options": ["Đặt máy tính lại gần nguồn sáng.", "Xóa bớt phần mềm diệt virus.", "Khởi động lại hệ điều hành nhiều lần.", "Lắp thêm một bảng mạch mở rộng."], "correct": 3, "explanation": ""}, {"id": 119, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 5", "type": "single", "question": "Tên gọi Modem là viết tắt của hai từ tiếng Anh nào?", "image": "", "options": ["Monitor và Demand.", "Module và Demo.", "Modern và Empire.", "Modulation và Demodulation."], "correct": 3, "explanation": ""}, {"id": 120, "section": "Phần I. Trắc nghiệm nhiều lựa chọn", "lesson": "Đề 5", "type": "single", "question": "Việc cửa ra vào siêu thị tự động mở khi có người tới gần có được coi là ứng dụng AI không?", "image": "", "options": ["Có, vì nó tự động ra quyết định.", "Không, vì nó thuộc hệ chuyên gia.", "Không, đây chỉ là tự động hoá đơn thuần.", "Có, vì nó nhận diện được con người."], "correct": 2, "explanation": ""}, {"id": 121, "section": "Phần II. Trắc nghiệm đúng/sai", "lesson": "Phần II - Đúng/Sai", "type": "truefalse", "question": "Đọc ngữ liệu và xét các nhận định sau.\n\"Giao tiếp trong không gian mạng có nhiều ưu điểm. Tiết kiệm thời gian và chi phí. So với giao tiếp trực tiếp, giao tiếp trực tuyến giúp tiết kiệm thời gian và chi phí di chuyển. Tuy nhiên giao tiếp trong không gian mạng cũng có nhiều nhược điểm. Thiếu tín hiệu phi ngôn ngữ, có thể thiếu tín hiệu phi ngôn ngữ như nét mặt, ngôn ngữ cơ thể và biểu cảm giọng nói.\"", "image": "", "statements": [{"id": "a", "text": "Việc sử dụng giao tiếp trực tuyến thường làm tăng đáng kể chi phí và thời gian di chuyển của người tham gia.", "correct": false}, {"id": "b", "text": "Giao tiếp trong không gian mạng là một môi trường tuyệt đối an toàn và không tồn tại bất kỳ nguy cơ nào về quyền riêng tư.", "correct": false}, {"id": "c", "text": "Một hạn chế lớn của việc nhắn tin hay gửi thư điện tử là không truyền tải được nét mặt và biểu cảm cơ thể.", "correct": true}, {"id": "d", "text": "Hội nghị truyền hình là giải pháp hữu hiệu để giảm bớt chi phí ăn ở và nhu cầu đi lại trong công việc.", "correct": true}], "explanation": ""}, {"id": 122, "section": "Phần II. Trắc nghiệm đúng/sai", "lesson": "Phần II - Đúng/Sai", "type": "truefalse", "question": "Đọc ngữ liệu và xét các nhận định sau.\n\"Máy tính cung cấp dịch vụ in sẽ nhận yêu cầu gửi đến từ các máy tính khác trong mạng, xếp thành hàng đợi. Khi máy in sẵn sàng, máy tính cung cấp dịch vụ in sẽ điều khiển máy in in lần lượt các tài liệu được gửi tới. Như vậy, việc chia sẻ máy in thực chất là biến máy tính có máy in đó thành một máy chủ cung cấp dịch vụ in (Print Server).\"", "image": "", "statements": [{"id": "a", "text": "Máy tính cung cấp dịch vụ in đóng vai trò xử lý các tài liệu được yêu cầu in thành một hàng đợi để tiến hành in lần lượt.", "correct": true}, {"id": "b", "text": "Máy tính có gắn máy in chỉ có thể tiếp nhận và xử lý yêu cầu in từ một máy tính duy nhất trên mạng LAN tại một thời điểm nhất định.", "correct": false}, {"id": "c", "text": "Về bản chất, tính năng chia sẻ máy in chính là tạo ra một máy chủ cung cấp dịch vụ in (Print Server) để quản lý luồng tài liệu.", "correct": true}, {"id": "d", "text": "Quá trình thao tác chia sẻ máy in trên mạng sẽ trực tiếp cấu hình chiếc máy in phần cứng đó trở thành một máy chủ web chuyên biệt.", "correct": false}], "explanation": ""}, {"id": 123, "section": "Phần II. Trắc nghiệm đúng/sai", "lesson": "Phần II - Đúng/Sai", "type": "truefalse", "question": "Đọc ngữ liệu và xét các nhận định sau.\n\"Thiếu kết nối quan hệ cá nhân chặt chẽ: Trong không gian mạng, người sử dụng có thể dễ dàng giấu mặt, tạo ra các bản sao không đầy đủ của bản thân hoặc giả mạo thông tin, làm cho người khác khó đánh giá được tính chân thật của thông tin và sự thật về người đối diện. Ví dụ, thông tin cá nhân của một tài khoản cụ thể trên mạng xã hội có thể chỉ là các thông tin bịa đặt.\"", "image": "", "statements": [{"id": "a", "text": "Trải nghiệm giao tiếp trong không gian mạng luôn đem lại chất lượng kết nối sâu sắc và hiệu quả hơn giao tiếp ngoài đời thực.", "correct": false}, {"id": "b", "text": "Tất cả các thông tin cá nhân được hiển thị công khai trên một tài khoản mạng xã hội luôn luôn là sự thật.", "correct": false}, {"id": "c", "text": "Việc không thể xác định tính chân thật của người đối diện gây khó khăn lớn trong việc xây dựng lòng tin.", "correct": true}, {"id": "d", "text": "Môi trường ẩn danh trên mạng tạo điều kiện dễ dàng cho việc giấu mặt và làm giả thông tin cá nhân.", "correct": true}], "explanation": ""}, {"id": 124, "section": "Phần II. Trắc nghiệm đúng/sai", "lesson": "Phần II - Đúng/Sai", "type": "truefalse", "question": "Đọc ngữ liệu và xét các nhận định sau.\n\"Ví dụ: Giao thức Ethernet về truyền tin trong mạng cục bộ. Quy định về mã kiểm tra. Giữa hai máy tính, không thể truyền một lượng tin dài không giới hạn trong một khoảng thời gian không định trước vì có thể làm quá tải máy nhận.\"", "image": "", "statements": [{"id": "a", "text": "Mã kiểm tra đính kèm dữ liệu có tác dụng giúp máy nhận phát hiện xem dữ liệu có bị lỗi trong quá trình truyền hay không.", "correct": true}, {"id": "b", "text": "Truyền dữ liệu thành một khối dài vô tận là cách hiệu quả nhất để tiết kiệm thời gian truyền tin.", "correct": false}, {"id": "c", "text": "Nếu phát hiện có lỗi truyền thông qua mã kiểm tra, máy nhận có thể tự động sửa lỗi mà không cần máy gửi can thiệp.", "correct": false}, {"id": "d", "text": "Việc truyền dữ liệu thực chất được thực hiện theo từng gói nhỏ có độ dài được xác định trước.", "correct": true}], "explanation": ""}, {"id": 125, "section": "Phần II. Trắc nghiệm đúng/sai", "lesson": "Phần II - Đúng/Sai", "type": "truefalse", "question": "Đọc ngữ liệu và xét các nhận định sau.\n\"Khi tham gia một cuộc thảo luận trên mạng xã hội, hãy đọc kĩ bài viết, không chia sẻ thông tin trao đổi riêng giữa hai người với một bên thứ ba khi chưa được phép.\"", "image": "", "statements": [{"id": "a", "text": "Chụp màn hình đoạn tin nhắn tâm sự riêng tư của một người bạn và gửi vào nhóm chat khác để bàn tán là hành vi sai trái.", "correct": true}, {"id": "b", "text": "Trong các cuộc gọi video trực tuyến tại nhà, việc ăn mặc luộm thuộm được chấp nhận vì người khác chỉ nhìn thấy bạn qua màn hình.", "correct": false}, {"id": "c", "text": "Để đưa ra ý kiến phản biện sắc bén trên mạng xã hội, ta không cần đọc hết bài viết mà chỉ cần dựa vào tiêu đề.", "correct": false}, {"id": "d", "text": "Kiểm tra tính chính xác của thông tin trước khi nhấn nút \"Share\" giúp ngăn ngừa việc làm tổn hại đến danh tiếng của người khác.", "correct": true}], "explanation": ""}, {"id": 126, "section": "Phần II. Trắc nghiệm đúng/sai", "lesson": "Phần II - Đúng/Sai", "type": "truefalse", "question": "Đọc ngữ liệu và xét các nhận định sau.\n\"Mạng công cộng thường được thiết lập ở những địa điểm công cộng như nhà ga... với mục đích hạn chế nguy cơ lộ thông tin. Mạng riêng được hiểu là mạng của nhóm người dùng có độ tin cậy cao hơn...\"", "image": "", "statements": [{"id": "a", "text": "Khi sử dụng Wi-Fi ở quán cà phê, người dùng nên cài đặt thành mạng riêng (Private network) để bảo mật tốt hơn.", "correct": false}, {"id": "b", "text": "Mạng riêng (Private network) được ưu tiên sử dụng khi cần chia sẻ tài nguyên giữa các thiết bị do mức độ tin cậy cao.", "correct": true}, {"id": "c", "text": "Các phiên bản Windows mới thường không quan tâm đến an ninh mạng để dễ dàng trong việc chia sẻ.", "correct": false}, {"id": "d", "text": "Thiết lập mạng công cộng (Public network) nhằm phục vụ mục đích hạn chế các nguy cơ lộ thông tin cá nhân.", "correct": true}], "explanation": ""}, {"id": 127, "section": "Phần II. Trắc nghiệm đúng/sai", "lesson": "Phần II - Đúng/Sai", "type": "truefalse", "question": "Đọc ngữ liệu và xét các nhận định sau.\nGoogle dịch là một dịch vụ dịch thuật miễn phí do Google phát triển vào tháng 4 năm 2006. Hiện tại, công nghệ nhận dạng chữ viết tay được sử dụng rộng rãi. Một trong số những ứng dụng thú vị của AI là các 'Trợ lí ảo'...", "image": "", "statements": [{"id": "a", "text": "Google dịch có thể nhận ra các từ trong hình ảnh và phiên dịch tức thời.", "correct": true}, {"id": "b", "text": "Các trợ lí ảo có thể trò chuyện và tìm kiếm thông tin bằng tiếng nói của người dùng.", "correct": true}, {"id": "c", "text": "Ứng dụng nhận dạng khuôn mặt giúp chuyển đổi hình ảnh chữ viết tay thành dữ liệu văn bản.", "correct": false}, {"id": "d", "text": "Trợ lí ảo Bixby là sản phẩm được phát triển bởi Samsung.", "correct": true}], "explanation": ""}, {"id": 128, "section": "Phần II. Trắc nghiệm đúng/sai", "lesson": "Phần II - Đúng/Sai", "type": "truefalse", "question": "Đọc ngữ liệu và xét các nhận định sau.\n\"Everyone được thêm vào danh sách người dùng mặc định có quyền (Permission Level) là chỉ được đọc dữ liệu (read). Quyền read chỉ cho phép xem mà không được sửa (write). Nếu muốn người dùng có quyền sửa thì nháy chuột vào hình tam giác nhỏ Read rồi chọn Read/Write để chỉ định quyền cả đọc và sửa. Chọn Remove để huỷ chia sẻ đối với người dùng này.\"", "image": "", "statements": [{"id": "a", "text": "Quyền \"Read\" là quyền cơ bản chỉ cho phép người dùng xem dữ liệu nhưng hoàn toàn không thể thực hiện chỉnh sửa nội dung.", "correct": true}, {"id": "b", "text": "Để người dùng mạng khác có khả năng thay đổi, chỉnh sửa các tệp tin trong thư mục chia sẻ, bạn phải chọn quyền \"Read/Write\".", "correct": true}, {"id": "c", "text": "Thao tác bấm nút \"Remove\" trên giao diện chia sẻ sẽ xoá vĩnh viễn tệp tin đó khỏi ổ cứng của người chia sẻ.", "correct": false}, {"id": "d", "text": "Khi chọn chia sẻ dữ liệu cho nhóm \"Everyone\", hệ thống Windows sẽ tự động cấp ngay quyền vừa đọc vừa sửa (Read/Write).", "correct": false}], "explanation": ""}, {"id": 129, "section": "Phần II. Trắc nghiệm đúng/sai", "lesson": "Phần II - Đúng/Sai", "type": "truefalse", "question": "Đọc ngữ liệu và xét các nhận định sau.\n\"Tại nơi gửi, dữ liệu được cắt ra thành nhiều gói có độ dài xác định. Các gói dữ liệu gửi đi có thể lưu ở các router với thời gian khác nhau và theo đường khác nhau nên có thể xảy ra trường hợp gói gửi sau lại đến trước. TCP yêu cầu các gói dữ liệu được đánh số theo từng ứng dụng, để ở nơi nhận chúng được ráp lại đúng thứ tự. Quy định một cơ chế xác nhận để nơi gửi biết các gói tin đến có sai sót hoặc thất lạc hay không.\"", "image": "", "statements": [{"id": "a", "text": "TCP cung cấp cơ chế để máy gửi nhận biết được trạng thái các gói tin của mình có bị thất lạc trên mạng hay không.", "correct": true}, {"id": "b", "text": "Nhờ vào việc đánh số thứ tự tại nơi gửi, máy nhận có thể ráp các mảnh gói tin lộn xộn lại thành dữ liệu hoàn chỉnh.", "correct": true}, {"id": "c", "text": "Dữ liệu trên mạng TCP luôn đến đích theo đúng thứ tự tuyệt đối từ gói tin đầu tiên đến gói tin cuối cùng.", "correct": false}, {"id": "d", "text": "Nếu một gói tin bị thất lạc, mạng Internet sẽ tự động dùng trí tuệ nhân tạo để mô phỏng lại nội dung gói tin đó.", "correct": false}], "explanation": ""}, {"id": 130, "section": "Phần II. Trắc nghiệm đúng/sai", "lesson": "Phần II - Đúng/Sai", "type": "truefalse", "question": "Đọc ngữ liệu và xét các nhận định sau.\nMột số đặc trưng cơ bản của AI thường được nói tới nhiều nhất đó là các khả năng học, suy luận, nhận thức, hiểu ngôn ngữ và giải quyết vấn đề. Bất kì ứng dụng AI nào cũng đều cần có sự kết hợp ở các mức độ khác nhau một số đặc trưng trí tuệ nêu trên. Điều này tạo nên sự khác biệt giữa AI và tự động hoá.", "image": "", "statements": [{"id": "a", "text": "Khả năng suy luận và hiểu ngôn ngữ là hai trong số các đặc trưng cơ bản của AI.", "correct": true}, {"id": "b", "text": "Dây chuyền lắp ráp máy móc lặp đi lặp lại thao tác là một dạng ứng dụng AI tiên tiến.", "correct": false}, {"id": "c", "text": "Mọi ứng dụng AI đều kết hợp một số đặc trưng trí tuệ ở các mức độ khác nhau.", "correct": true}, {"id": "d", "text": "AI và hệ thống tự động hoá là hai khái niệm hoàn toàn giống nhau.", "correct": false}], "explanation": ""}, {"id": 131, "section": "Phần II. Trắc nghiệm đúng/sai", "lesson": "Phần II - Đúng/Sai", "type": "truefalse", "question": "Đọc ngữ liệu và xét các nhận định sau.\n\"Tôn trọng: Bao gồm tôn trọng quyền riêng tư, không phát tán thông tin riêng tư của người khác mà không có sự cho phép của họ. Lịch sự: Sử dụng ngôn từ đúng mực, không sử dụng ngôn từ nhạy cảm, lăng mạ, châm chọc, phỉ báng... Tránh gửi nội dung thư rác hoặc quảng cáo không liên quan đến nội dung chính của cuộc trò chuyện.\"", "image": "", "statements": [{"id": "a", "text": "Nguyên tắc tôn trọng bắt buộc mọi người tham gia tranh luận phải chia sẻ và chấp nhận cùng một quan điểm với số đông.", "correct": false}, {"id": "b", "text": "Lan truyền bí mật cá nhân của bạn bè lên nhóm chat khi chưa xin phép là hành vi vi phạm nguyên tắc \"Tôn trọng\".", "correct": true}, {"id": "c", "text": "Sử dụng từ ngữ châm chọc trong bình luận là cách thể hiện sự thân thiết và vẫn đảm bảo tính lịch sự.", "correct": false}, {"id": "d", "text": "Việc liên tục gửi các đường dẫn quảng cáo vào nhóm làm việc chung là hành vi cần tránh để giữ lịch sự.", "correct": true}], "explanation": ""}];
+
+// ---------- trạng thái ----------
+const S = { name: '', history: [], notes: {}, flags: {}, session: null };
+const H = { mode: 'practice', shuffle: true, les: null, types: new Set(['single', 'truefalse', 'short']) };
+let Q = null, view = 'home', rev = null, rvF = 'all', palOpen = false;
+let lbF = 'latest', lbL = 'Tổng hợp', lbData = [], lbSrc = '', lbTimer = null, lbWarned = false;
+let last = 0, tmr = null, tt = null, noteT = null;
+
+const $ = s => document.querySelector(s);
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+function fmt(ms) { const s = Math.max(0, Math.floor(ms / 1000)), h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), r = s % 60, p = x => (x < 10 ? '0' : '') + x; return (h ? h + ':' : '') + p(m) + ':' + p(r); }
+function shuf(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function lsGet(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }
+function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { } }
+function clone(v) { return JSON.parse(JSON.stringify(v)); }
+function toast(h, c) { const t = $('#toast'); t.innerHTML = h; t.className = 'show ' + (c || ''); clearTimeout(tt); tt = setTimeout(() => { t.className = ''; }, 2600); }
+
+// ---------- bẫy lỗi hiển thị ----------
+function crash(msg) {
+  const d = document.createElement('div'); d.className = 'crash';
+  d.innerHTML = '<h3>⚠️ Đã xảy ra lỗi</h3><pre>' + esc(msg) + '</pre><button id="rcv">Khôi phục ứng dụng</button>';
+  document.body.appendChild(d);
+  d.querySelector('#rcv').onclick = () => { d.remove(); last = 0; clearInterval(tmr); Q = null; view = 'home'; try { render(); } catch (e) { location.reload(); } };
+}
+window.addEventListener('error', e => { if (e.message) crash(e.message + (e.lineno ? ' (dòng ' + e.lineno + ')' : '')); });
+window.addEventListener('unhandledrejection', e => { crash(String(e.reason && e.reason.message || e.reason)); });
+
+// ---------- StorageEngine: IndexedDB + RAM, fallback LocalStorage ----------
+const SE = (function () {
+  let db = null;
+  function openDb() {
+    return new Promise(res => {
+      try {
+        if (!window.indexedDB) { res(); return; }
+        const rq = indexedDB.open(DB_NAME, 1);
+        rq.onupgradeneeded = () => { rq.result.createObjectStore('kv'); };
+        rq.onsuccess = () => { db = rq.result; res(); };
+        rq.onerror = () => res(); rq.onblocked = () => res();
+      } catch (e) { res(); }
+    });
+  }
+  function get(k) {
+    return new Promise(res => {
+      if (db) { try { const r = db.transaction('kv', 'readonly').objectStore('kv').get(k); r.onsuccess = () => res(r.result); r.onerror = () => res(undefined); return; } catch (e) { } }
+      res(lsGet('nht_' + k, undefined));
+    });
+  }
+  function set(k, v) { if (db) { try { db.transaction('kv', 'readwrite').objectStore('kv').put(v, k); return; } catch (e) { } } lsSet('nht_' + k, v); }
+  function del(k) { if (db) { try { db.transaction('kv', 'readwrite').objectStore('kv').delete(k); } catch (e) { } } try { localStorage.removeItem('nht_' + k); } catch (e) { } }
+  return { openDb, get, set, del };
+})();
+
+// ---------- dữ liệu dẫn xuất ----------
+const BY = {}; examData.forEach(q => { BY[q.id] = q; });
+const LES = []; examData.forEach(q => { let l = LES.find(x => x.name === q.lesson); if (!l) { l = { name: q.lesson, c: { single: 0, truefalse: 0, short: 0 } }; LES.push(l); } l.c[q.type]++; });
+const TYPES = [['single', 'Trắc nghiệm nhiều lựa chọn'], ['truefalse', 'Trắc nghiệm Đúng/Sai'], ['short', 'Trả lời ngắn']];
+const TC = { single: 0, truefalse: 0, short: 0 }; examData.forEach(q => { TC[q.type]++; });
+H.les = new Set(LES.map(l => l.name));
+const OKMSG = '✅ <b>Làm tốt lắm</b> - Hãy giữ vững phong độ. Tiến lên';
+const BADMSG = '🔄 <b>Không đúng!</b> - Làm lại hoặc bạn có thể bỏ qua';
+
+// ---------- chấm điểm ----------
+function normNum(v) { const t = String(v == null ? '' : v).trim().replace(/\s+/g, '').replace(/,/g, '.'); return /^[-+]?(\d+\.?\d*|\.\d+)$/.test(t) ? String(Number(t)) : t.toLowerCase(); }
+function grade(q, a) {
+  if (q.type === 'single') return a === q.correct ? 1 : 0;
+  if (q.type === 'truefalse') { if (!Array.isArray(a)) return 0; let n = 0; q.statements.forEach((s, i) => { if (a[i] === s.correct) n++; }); return [0, 0.1, 0.25, 0.5, 1][n]; }
+  return normNum(a) !== '' && normNum(a) === normNum(q.correct) ? 1 : 0;
+}
+function isAns(q, a) {
+  if (q.type === 'single') return a != null;
+  if (q.type === 'truefalse') return Array.isArray(a) && a.length === q.statements.length && a.every(x => x != null);
+  return String(a == null ? '' : a).trim() !== '';
+}
+function stats() { const m = {}; S.history.forEach(h => (h.items || []).forEach(x => { const r = m[x.q] || (m[x.q] = { t: 0, w: 0 }); r.t++; if (x.s < 1) r.w++; })); return m; }
+function wrongIds(st) { return Object.keys(st).filter(k => st[k].w > 0 && BY[k]).sort((a, b) => (st[b].w / st[b].t) - (st[a].w / st[a].t) || st[b].w - st[a].w).map(Number); }
+
+// ---------- phiên làm bài ----------
+function permOf(q) { const n = q.type === 'single' ? q.options.length : q.type === 'truefalse' ? q.statements.length : 0; const a = []; for (let i = 0; i < n; i++) a.push(i); return H.shuffle ? shuf(a) : a; }
+function orderList(list) { if (!H.shuffle) return list.slice(); const g = { single: [], truefalse: [], short: [] }; list.forEach(q => g[q.type].push(q)); return [].concat(shuf(g.single), shuf(g.truefalse), shuf(g.short)); }
+function startList(list, title, kind, mode, lesson) {
+  if (!list.length) { toast('Không có câu hỏi phù hợp'); return; }
+  if (S.session && !confirm('Đang có bài làm dở. Bắt đầu bài mới sẽ bỏ bài dở. Tiếp tục?')) return;
+  const items = orderList(list).map(q => ({ id: q.id, p: permOf(q) }));
+  Q = { v: 1, mode, kind, title, lesson: lesson || 'Tổng hợp', items, pos: 0, ans: {}, chk: {}, res: {}, fa: {}, cut: {}, elapsedMs: 0, limitMs: mode === 'exam' ? Math.ceil(items.length * 1.2) * 60000 : 0, startTs: Date.now() };
+  S.session = Q; view = 'quiz'; palOpen = false; saveQ(); startClock(); render(); window.scrollTo(0, 0);
+}
+function startNormal() {
+  const l = examData.filter(q => H.les.has(q.lesson) && H.types.has(q.type)); const ls = LES.filter(x => H.les.has(x.name)).map(x => x.name);
+  startList(l, ls.length === LES.length ? 'Tổng hợp' : ls.join(', '), 'normal', H.mode, ls.length === 1 ? ls[0] : 'Tổng hợp');
+}
+function saveQ() {
+  if (!Q) return; tickNow(); Q.savedAt = Date.now(); S.session = Q;
+  try { localStorage.setItem('nht_session_ls', JSON.stringify(Q)); } catch (e) { }
+  SE.set('session', Q);
+}
+function tickNow() { if (!Q || !last) return; const n = performance.now(); Q.elapsedMs += n - last; last = n; }
+function startClock() { last = performance.now(); clearInterval(tmr); tmr = setInterval(onTick, 500); }
+function stopClock() { tickNow(); last = 0; clearInterval(tmr); tmr = null; }
+function onTick() {
+  if (!Q || view !== 'quiz' || !last) return; tickNow(); updTimer();
+  if (Q.mode === 'exam' && Q.elapsedMs >= Q.limitMs) { toast('⏰ Hết giờ - tự động nộp bài'); finish(); }
+}
+function updTimer() { const e = $('#tm'); if (e && Q) e.textContent = Q.mode === 'exam' ? '⏳ ' + fmt(Q.limitMs - Q.elapsedMs) : '⏱ ' + fmt(Q.elapsedMs); }
+function onHide() { if (Q) { tickNow(); last = 0; saveQ(); } }
+function onShow() { if (Q && view === 'quiz' && !last) last = performance.now(); }
+function resume() { if (!S.session) return; Q = S.session; view = 'quiz'; palOpen = false; startClock(); render(); window.scrollTo(0, 0); }
+function exitQuiz() { stopClock(); saveQ(); Q = null; view = 'home'; render(); toast('Đã lưu tiến trình - bấm Tiếp tục để làm tiếp'); }
+function discard() { if (!confirm('Bỏ bài đang làm dở?')) return; S.session = null; SE.del('session'); try { localStorage.removeItem('nht_session_ls'); } catch (e) { } render(); }
+function goPos(i) { if (!Q) return; Q.pos = Math.max(0, Math.min(Q.items.length - 1, i)); palOpen = false; clearPad(); saveQ(); render(); window.scrollTo(0, 0); }
+function submit() {
+  const ex = Q.mode === 'exam';
+  const un = Q.items.filter(it => ex ? !isAns(BY[it.id], Q.ans[it.id]) : Q.chk[it.id] === undefined).length;
+  if (un && !confirm('Còn ' + un + ' câu chưa làm. Vẫn ' + (ex ? 'nộp bài' : 'kết thúc') + '?')) return;
+  finish();
+}
+function finish() {
+  if (!Q) return; tickNow();
+  const n = Q.items.length, ex = Q.mode === 'exam';
+  const items = Q.items.map(it => {
+    const q = BY[it.id]; let s = Q.res[it.id];
+    if (s === undefined) s = ex ? grade(q, Q.ans[it.id]) : 0;
+    const a = ex ? Q.ans[it.id] : Q.fa[it.id];
+    return { q: it.id, a: a === undefined ? null : a, s };
+  });
+  const sum = items.reduce((t, x) => t + x.s, 0);
+  const rec = { id: Date.now(), ts: Date.now(), mode: Q.mode, kind: Q.kind, title: Q.title, lesson: Q.lesson, n, sum: Math.round(sum * 100) / 100, s10: Math.round(sum / n * 1000) / 100, timeMs: Math.round(Q.elapsedMs), items };
+  S.history.unshift(rec); SE.set('history', S.history);
+  stopClock(); S.session = null; SE.del('session'); try { localStorage.removeItem('nht_session_ls'); } catch (e) { }
+  Q = null; rev = rec; view = 'result'; palOpen = false; clearPad(); render(); window.scrollTo(0, 0);
+  if (rec.kind === 'normal') lbPush(rec);
+}
+function mainAct() {
+  if (!Q) return;
+  const it = Q.items[Q.pos], q = BY[it.id], id = it.id, a = Q.ans[id], c = Q.chk[id], n = Q.items.length;
+  if (Q.mode === 'exam') { if (Q.pos < n - 1) goPos(Q.pos + 1); else submit(); return; }
+  if (c === undefined) {
+    if (!isAns(q, a)) return;
+    const s = grade(q, a); Q.chk[id] = s;
+    if (Q.res[id] === undefined) { Q.res[id] = s; Q.fa[id] = clone(a); }
+    toast(s >= 1 ? OKMSG : BADMSG, s >= 1 ? 'ok' : 'bad'); saveQ(); render();
+  } else if (c >= 1) { if (Q.pos < n - 1) goPos(Q.pos + 1); else submit(); }
+  else { delete Q.chk[id]; delete Q.ans[id]; delete Q.cut[id]; saveQ(); render(); }
+}
+
+// ---------- giao diện ----------
+function tabs(a) { return '<div class="tabs">' + [['home', '🏠 Trang chủ'], ['hist', '🕘 Lịch sử'], ['wrong', '❗ Câu hay sai'], ['lb', '🏆 Xếp hạng']].map(x => '<button class="tab' + (a === x[0] ? ' on' : '') + '" data-act="tab" data-v="' + x[0] + '">' + x[1] + '</button>').join('') + '</div>'; }
+function chkRow(k, v, label, cnt, on) { return '<label class="chk' + (on ? ' on' : '') + '"><input type="checkbox" data-k="' + k + '" data-v="' + esc(v) + '"' + (on ? ' checked' : '') + '><span>' + label + '</span><span class="cn">' + cnt + '</span></label>'; }
+function idp(q) { const a = [], n = q.type === 'single' ? q.options.length : q.type === 'truefalse' ? q.statements.length : 0; for (let i = 0; i < n; i++) a.push(i); return a; }
+function noteBox(id) { return '<div class="note"><div class="mu">📝 Ghi chú/Mẹo nhớ của riêng bạn</div><textarea rows="2" data-note="' + id + '" placeholder="Nhập ghi chú...">' + esc(S.notes[id] || '') + '</textarea></div>'; }
+
+function qView(q, p, a, show, cut) {
+  let h = '<div class="' + (show ? 'show' : '') + '">';
+  if (q.type === 'single') {
+    h += '<div class="hint">Chọn một đáp án đúng</div>';
+    p.forEach((oi, k) => {
+      let cl = 'opt'; if (show) { if (oi === q.correct) cl += ' ok'; else if (a === oi) cl += ' bad'; } else if (a === oi) cl += ' sel';
+      if (cut && cut.indexOf(oi) >= 0) cl += ' cut';
+      h += '<div class="' + cl + '" data-act="pick" data-i="' + oi + '"><span class="ltr">' + 'ABCD'[k] + '</span><span class="ot">' + esc(q.options[oi]) + '</span>' + (show ? '' : '<button class="x" data-act="cut" data-i="' + oi + '" title="Gạch đáp án">✕</button>') + '</div>';
+    });
+  } else if (q.type === 'truefalse') {
+    h += '<div class="hint">Chọn Đúng hoặc Sai cho từng ý</div>';
+    p.forEach((si, k) => {
+      const s = q.statements[si], v = Array.isArray(a) ? a[si] : null, good = v === s.correct;
+      h += '<div class="st' + (show ? (v == null ? ' bad' : good ? ' ok' : ' bad') : '') + '"><div class="stt"><b>' + 'abcd'[k] + ')</b> ' + esc(s.text) + '</div><div class="tfb"><button class="tb' + (v === true ? ' on' : '') + '" data-act="tf" data-i="' + si + '" data-v="1">Đúng</button><button class="tb' + (v === false ? ' on' : '') + '" data-act="tf" data-i="' + si + '" data-v="0">Sai</button></div>' +
+        (show ? '<div class="rs">' + (v == null ? 'Chưa chọn' : good ? '✓ Chọn đúng' : '✗ Chọn sai') + ' · Đáp án: ' + (s.correct ? 'Đúng' : 'Sai') + '</div>' : '') + '</div>';
+    });
+  } else {
+    h += '<div class="hint">Nhập đáp án (số)</div><input id="sa" class="sa" inputmode="decimal" autocomplete="off" placeholder="Nhập đáp án" value="' + esc(a == null ? '' : a) + '"' + (show ? ' disabled' : '') + '>';
+    if (show) h += '<div class="rs">Đáp án đúng: <b>' + esc(q.correct) + '</b></div>';
+  }
+  h += '</div>';
+  if (show && q.explanation) h += '<div class="ex"><b>💡 Giải thích chi tiết</b><br>' + esc(q.explanation) + '</div>';
+  return h;
+}
+
+function rQuiz() {
+  const n = Q.items.length, it = Q.items[Q.pos], q = BY[it.id], id = it.id, a = Q.ans[id], ex = Q.mode === 'exam', shown = !ex && Q.chk[id] !== undefined, fl = S.flags[id] || 0;
+  let h = '<div class="qtop"><button class="ib" data-act="exit" title="Thoát (lưu tiến trình)">✕</button><span id="qstat" class="qs"></span><span id="tm" class="tmr"></span><button class="ib" data-act="pad" title="Nháp">✏️</button>' + (ex ? '<button class="ib" data-act="pal" title="Bảng câu hỏi">🧭</button><button class="sm dg" data-act="submit">Nộp bài</button>' : '') + '</div>';
+  h += '<div class="card"><div class="sec">' + esc(q.section) + ' · ' + esc(q.lesson) + '</div><div class="qh"><h3>Câu ' + (Q.pos + 1) + '</h3><span><button class="fb' + (fl === 1 ? ' on' : '') + '" data-act="flag" data-v="1">⭐ Câu hay/Cần nhớ</button><button class="fb' + (fl === 2 ? ' on' : '') + '" data-act="flag" data-v="2">⚠️ Phân vân</button></span></div>';
+  h += '<div class="qt">' + esc(q.question) + '</div>' + (q.image ? '<img class="qi" src="' + esc(q.image) + '" alt="">' : '');
+  h += qView(q, it.p, a, shown, Q.cut[id]);
+  if (shown) h += noteBox(id);
+  h += '</div>';
+  if (palOpen) {
+    h += '<div class="pal" data-act="pal"><div data-stop="1"><b>Bảng câu hỏi</b> <span class="mu">(cam = đã làm)</span><div class="pg">' + Q.items.map((x, i) => '<button data-act="jump" data-i="' + i + '" class="' + (isAns(BY[x.id], Q.ans[x.id]) ? 'dn ' : '') + (i === Q.pos ? 'cu' : '') + '">' + (i + 1) + '</button>').join('') + '</div><button class="sm" data-act="pal">Đóng</button></div></div>';
+  }
+  h += '<div class="bar"><div class="bl"><button class="ib" data-act="prev">‹</button><span>Câu ' + (Q.pos + 1) + '/' + n + '</span><button class="ib" data-act="next">›</button></div><button id="qbtn" class="main" data-act="main"></button></div>';
+  return h;
+}
+function refreshBar() {
+  if (!Q || view !== 'quiz') return;
+  const it = Q.items[Q.pos], q = BY[it.id], a = Q.ans[it.id], c = Q.chk[it.id], n = Q.items.length;
+  let st;
+  if (q.type === 'single') st = a == null ? 'Chưa chọn' : 'Chọn ' + 'ABCD'[it.p.indexOf(a)];
+  else if (q.type === 'truefalse') st = 'Đã chọn ' + (Array.isArray(a) ? a.filter(x => x != null).length : 0) + '/' + q.statements.length + ' ý';
+  else st = String(a || '').trim() ? 'Đã nhập' : 'Chưa nhập';
+  const qs = $('#qstat'); if (qs) qs.textContent = 'Câu ' + (Q.pos + 1) + ' - ' + st;
+  const b = $('#qbtn'); if (!b) return; b.className = 'main'; b.disabled = false; const lastQ = Q.pos === n - 1;
+  if (Q.mode === 'exam') b.textContent = lastQ ? 'Nộp bài' : 'Câu tiếp theo';
+  else if (c === undefined) { b.textContent = 'Kiểm tra'; b.disabled = !isAns(q, a); }
+  else if (c >= 1) { b.textContent = lastQ ? 'Hoàn thành' : 'Câu tiếp theo'; b.classList.add('good'); }
+  else { b.textContent = 'Thử lại'; b.classList.add('retry'); }
+  updTimer();
+}
+
+function rHome() {
+  const st = stats(), nw = wrongIds(st).length, nf = [1, 2].map(v => Object.keys(S.flags).filter(k => S.flags[k] === v && BY[k]).length);
+  const sel = examData.filter(q => H.les.has(q.lesson) && H.types.has(q.type)).length;
+  let h = tabs('home');
+  if (S.session) { const s = S.session; h += '<button class="resume" data-act="resume">▶️ TIẾP TỤC BÀI ĐANG LÀM DỞ (Đang ở Câu ' + (s.pos + 1) + '/' + s.items.length + ')</button><div style="text-align:right;margin:-6px 0 12px"><button class="sm dg" data-act="discard">Bỏ bài dở</button></div>'; }
+  h += '<div class="card"><h2>👤 Họ và tên</h2><input id="nm" class="inp" placeholder="Nhập họ và tên (dùng cho bảng xếp hạng)" value="' + esc(S.name) + '"></div>';
+  h += '<div class="card"><h2>⚙️ Chế độ</h2><div class="grid2"><button class="mb' + (H.mode === 'practice' ? ' on' : '') + '" data-act="mode" data-v="practice">📖 <b>Luyện tập</b><small>Chấm từng câu ngay</small></button><button class="mb' + (H.mode === 'exam' ? ' on' : '') + '" data-act="mode" data-v="exam">⏱️ <b>Phòng thi</b><small>Đếm ngược, nộp bài mới chấm</small></button></div>' + chkRow('shuf', 'x', '🔀 Trộn ngẫu nhiên thứ tự câu hỏi và đáp án', '', H.shuffle) + '</div>';
+  h += '<div class="card"><h2>📘 Chọn bài <small>(số câu: nhiều lựa chọn + đúng/sai + trả lời ngắn)</small></h2>' + LES.map(l => chkRow('les', l.name, '<b>' + esc(l.name) + '</b>', l.c.single + ' + ' + l.c.truefalse + ' + ' + l.c.short, H.les.has(l.name))).join('') + '</div>';
+  h += '<div class="card"><h2>🧩 Dạng câu hỏi</h2>' + TYPES.filter(t => TC[t[0]] > 0).map(t => chkRow('type', t[0], t[1], TC[t[0]] + ' câu', H.types.has(t[0]))).join('') + '</div>';
+  h += '<button class="start" data-act="start">🚀 Bắt đầu làm bài (' + sel + ' câu)</button>';
+  h += '<div class="card"><h2>🎯 Ôn luyện nhanh</h2><div class="chips"><button class="chip" data-act="quick" data-v="star">⭐ Câu hay (' + nf[0] + ')</button><button class="chip" data-act="quick" data-v="doubt">⚠️ Câu phân vân (' + nf[1] + ')</button><button class="chip" data-act="quick" data-v="wrong">❗ Các câu hay sai (' + nw + ')</button></div>' +
+    '<div class="chips"><button class="chip" data-act="export">💾 Xuất file sao lưu (.json)</button><label class="chip">📥 Nhập file sao lưu (.json)<input id="imp" type="file" accept=".json,application/json" style="display:none"></label></div></div>';
+  return h;
+}
+function rResult() {
+  const r = rev, ok = r.items.filter(x => x.s >= 1).length, bad = r.n - ok;
+  return '<div class="card"><h2>🎉 Kết quả: ' + esc(r.title) + '</h2><div class="big">' + r.s10 + '/10</div><p style="text-align:center" class="mu">Điểm ' + r.sum + '/' + r.n + ' · Đúng hoàn toàn ' + ok + ' · Chưa đúng ' + bad + ' · Thời gian ' + fmt(r.timeMs) + '</p></div>' +
+    '<div class="chips"><button class="chip on" data-act="review">🔍 Xem lại chi tiết</button>' + (bad ? '<button class="chip" data-act="retryw">🔁 Luyện tập lại câu sai (' + bad + ')</button>' : '') + '<button class="chip" data-act="tab" data-v="home">🏠 Trang chủ</button></div>';
+}
+function rReview() {
+  const r = rev; const l = r.items.filter(x => rvF === 'all' || (rvF === 'bad' ? x.s < 1 : x.s >= 1));
+  let h = '<div class="qtop"><button class="ib" data-act="tab" data-v="' + (rev.fromHist ? 'hist' : 'home') + '">←</button><span class="qs">Xem lại: ' + esc(r.title) + '</span></div><div class="chips">' + [['all', 'Tất cả'], ['bad', 'Chỉ câu sai'], ['ok', 'Chỉ câu đúng']].map(x => '<button class="chip' + (rvF === x[0] ? ' on' : '') + '" data-act="rvf" data-v="' + x[0] + '">' + x[1] + '</button>').join('') + '</div>';
+  l.forEach(x => {
+    const q = BY[x.q]; if (!q) return;
+    h += '<div class="card"><div class="sec">' + esc(q.section) + ' · ' + esc(q.lesson) + ' <span class="pill ' + (x.s >= 1 ? 'ok">Đúng' : 'bad">' + (x.s > 0 ? 'Một phần (' + x.s + ')' : 'Sai')) + '</span></div><div class="qt">' + esc(q.question) + '</div>' + (q.image ? '<img class="qi" src="' + esc(q.image) + '" alt="">' : '') + qView(q, idp(q), x.a, true, null) + noteBox(q.id) + '</div>';
+  });
+  return h + (l.length ? '' : '<div class="card mu">Không có câu nào.</div>');
+}
+function rHist() {
+  return tabs('hist') + '<div class="card"><h2>🕘 Lịch sử làm bài <small>(' + S.history.length + ' lượt)</small></h2>' + (S.history.length ? S.history.map((h, i) => '<div class="row"><div class="g"><b>' + esc(h.title) + '</b> <span class="pill ' + (h.mode === 'exam' ? 'bad">Phòng thi' : 'ok">Luyện tập') + '</span><small>' + new Date(h.ts).toLocaleString('vi-VN') + ' · ' + fmt(h.timeMs) + ' · ' + h.n + ' câu</small></div><b style="color:var(--or)">' + h.s10 + '</b><button class="sm" data-act="hview" data-i="' + i + '">Xem lại</button><button class="sm dg" data-act="hdel" data-i="' + i + '">🗑</button></div>').join('') : '<div class="mu">Chưa có lượt làm bài nào.</div>') + '</div>';
+}
+function rWrong() {
+  const st = stats(), ids = wrongIds(st);
+  return tabs('wrong') + '<div class="card"><h2>❗ Bảng tổng hợp câu hay làm sai</h2>' + (ids.length ? '<button class="start" data-act="quick" data-v="wrong">🔁 Luyện tập các câu hay sai (' + ids.length + ')</button>' + ids.map(id => { const q = BY[id], r = st[id]; return '<div class="row"><div class="g"><b>' + esc(q.lesson) + '</b> · ' + (q.question.length > 130 ? esc(q.question.slice(0, 130)) + '…' : esc(q.question)) + '<small>Sai ' + r.w + '/' + r.t + ' lần</small></div><b style="color:var(--bd)">' + Math.round(r.w / r.t * 100) + '%</b></div>'; }).join('') : '<div class="mu">Chưa có câu nào làm sai. Hãy làm vài lượt bài trước.</div>') + '</div>';
+}
+function rLb() {
+  return tabs('lb') + '<div class="card"><h2>🏆 Bảng xếp hạng</h2><div id="lbs" class="mu" style="margin-bottom:10px"></div><div class="chips">' + [['latest', 'Theo lượt làm mới nhất'], ['top', 'Top điểm cao nhất'], ['les', 'Theo từng phần/bài']].map(x => '<button class="chip' + (lbF === x[0] ? ' on' : '') + '" data-act="lbf" data-v="' + x[0] + '">' + x[1] + '</button>').join('') + '</div>' +
+    (lbF === 'les' ? '<div class="chips">' + ['Tổng hợp'].concat(LES.map(l => l.name)).map(n => '<button class="chip' + (lbL === n ? ' on' : '') + '" data-act="lbl" data-v="' + esc(n) + '">' + esc(n) + '</button>').join('') + '</div>' : '') + '<div id="lbb"></div></div>';
+}
+function render() {
+  let h = '';
+  if (view === 'quiz' && Q) h = rQuiz(); else if (view === 'result' && rev) h = rResult(); else if (view === 'review' && rev) h = rReview();
+  else if (view === 'hist') h = rHist(); else if (view === 'wrong') h = rWrong(); else if (view === 'lb') h = rLb(); else { view = 'home'; h = rHome(); }
+  $('#app').innerHTML = h; document.body.classList.toggle('inquiz', view === 'quiz');
+  if (view === 'quiz') { refreshBar(); const sa = $('#sa'); if (sa && !sa.disabled) setTimeout(() => { try { sa.focus(); } catch (e) { } }, 0); }
+  if (view === 'lb') drawLb();
+}
+function go(v) { view = v; clearInterval(lbTimer); lbTimer = null; if (v === 'lb') { loadLb(); lbTimer = setInterval(loadLb, 4000); } render(); window.scrollTo(0, 0); }
+
+// ---------- bảng xếp hạng ----------
+function fbUrl() { const u = String(FIREBASE_URL || '').trim().replace(/\/+$/, ''); return /^https:\/\//.test(u) ? u : ''; }
+async function lbLoad() {
+  const u = fbUrl();
+  if (u) {
+    try { const c = new AbortController(), to = setTimeout(() => c.abort(), 6000); const r = await fetch(u + LB_PATH + '.json', { signal: c.signal }); clearTimeout(to); if (!r.ok) throw new Error('http'); const o = await r.json(); lbSrc = 'online'; return o ? Object.keys(o).map(k => o[k]).filter(x => x && typeof x === 'object') : []; }
+    catch (e) { lbSrc = 'fallback'; }
+  } else lbSrc = 'local';
+  return lsGet('nht_lb', []);
+}
+function loadLb() { lbLoad().then(d => { lbData = d; if (view === 'lb') drawLb(); }).catch(() => { }); }
+async function lbPush(rec) {
+  const r = { name: S.name || 'Ẩn danh', s10: rec.s10, sum: rec.sum, n: rec.n, timeMs: rec.timeMs, ts: rec.ts, lesson: rec.lesson || 'Tổng hợp', mode: rec.mode };
+  const u = fbUrl();
+  if (u) {
+    try { const res = await fetch(u + LB_PATH + '.json', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(r) }); if (!res.ok) throw new Error('http'); toast('🏆 Đã gửi kết quả lên bảng xếp hạng'); return; } catch (e) { }
+    toast('Không gửi được lên Firebase - đã lưu giả lập trên máy');
+  } else if (!lbWarned) { lbWarned = true; toast('Bảng xếp hạng đang chạy chế độ giả lập (LocalStorage)'); }
+  const l = lsGet('nht_lb', []); l.push(r); lsSet('nht_lb', l);
+}
+function drawLb() {
+  const b = $('#lbb'); if (!b) return; let l = lbData.slice();
+  if (lbF === 'latest') l.sort((x, y) => y.ts - x.ts); else { if (lbF === 'les') l = l.filter(x => x.lesson === lbL); l.sort((x, y) => y.s10 - x.s10 || x.timeMs - y.timeMs); }
+  l = l.slice(0, 50);
+  const s = $('#lbs'); if (s) s.textContent = lbSrc === 'online' ? '🟢 Online (Firebase) - tự cập nhật' : lbSrc === 'fallback' ? '🟡 Mất kết nối Firebase - đang dùng dữ liệu giả lập trên máy' : '🟡 Chưa cấu hình Firebase - đang dùng bảng giả lập trên máy';
+  b.innerHTML = l.length ? l.map((x, i) => '<div class="lbr"><div class="rk">' + (lbF === 'latest' ? '•' : (i < 3 ? ['🥇', '🥈', '🥉'][i] : i + 1)) + '</div><div class="g"><b>' + esc(x.name) + '</b><small>' + esc(x.lesson) + ' · ' + new Date(x.ts).toLocaleString('vi-VN') + '</small></div><div class="sc">' + x.s10 + '/10<small class="mu" style="display:block">' + fmt(x.timeMs) + '</small></div></div>').join('') : '<div class="mu">Chưa có kết quả nào.</div>';
+}
+
+// ---------- sao lưu ----------
+function exportJ() {
+  const blob = new Blob([JSON.stringify({ app: 'nht-tin12-gk1', v: 1, history: S.history, notes: S.notes, flags: S.flags, name: S.name }, null, 1)], { type: 'application/json' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'NHT_Tin12_GK1_backup.json'; document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500); toast('Đã xuất file sao lưu');
+}
+function importJ(f) {
+  if (!f) return; const rd = new FileReader();
+  rd.onload = () => {
+    try {
+      const o = JSON.parse(rd.result); if (!o || !Array.isArray(o.history)) throw new Error('File không hợp lệ');
+      const ids = new Set(S.history.map(h => h.id)); o.history.forEach(h => { if (h && h.id && !ids.has(h.id)) { S.history.push(h); ids.add(h.id); } });
+      S.history.sort((a, b) => b.ts - a.ts); Object.assign(S.notes, o.notes || {}); Object.assign(S.flags, o.flags || {}); if (o.name && !S.name) S.name = o.name;
+      SE.set('history', S.history); SE.set('notes', S.notes); SE.set('flags', S.flags); SE.set('name', S.name); toast('Đã nhập sao lưu: ' + S.history.length + ' lượt'); render();
+    } catch (e) { toast('Không đọc được file: ' + esc(e.message)); }
+  };
+  rd.readAsText(f);
+}
+
+// ---------- bảng nháp ----------
+let padOn = false, padCol = '#ff9f1c', padErase = false, padDraw = false;
+function clearPad() { const c = $('#pad'); if (c && c.width) c.getContext('2d').clearRect(0, 0, c.width, c.height); }
+function togglePad() {
+  padOn = !padOn; $('#padw').style.display = padOn ? 'block' : 'none'; $('#padt').style.display = padOn ? 'flex' : 'none';
+  if (padOn) { const c = $('#pad'); if (c.width !== window.innerWidth || c.height !== window.innerHeight) { c.width = window.innerWidth; c.height = window.innerHeight; } }
+}
+function padInit() {
+  const c = $('#pad'), ctx = c.getContext('2d');
+  function pt(e) { const r = c.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; }
+  c.addEventListener('pointerdown', e => { padDraw = true; const p = pt(e); ctx.beginPath(); ctx.moveTo(p[0], p[1]); try { c.setPointerCapture(e.pointerId); } catch (x) { } });
+  c.addEventListener('pointermove', e => {
+    if (!padDraw) return; const p = pt(e); ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    ctx.globalCompositeOperation = padErase ? 'destination-out' : 'source-over'; ctx.strokeStyle = padCol; ctx.lineWidth = padErase ? 26 : 3; ctx.lineTo(p[0], p[1]); ctx.stroke();
+  });
+  const up = () => { padDraw = false; }; c.addEventListener('pointerup', up); c.addEventListener('pointercancel', up);
+  $('#padt').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return; const v = b.dataset.c;
+    if (v === 'close') togglePad(); else if (v === 'clear') clearPad(); else if (v === 'erase') padErase = true; else { padErase = false; padCol = v; }
+  });
+}
+
+// ---------- sự kiện (ủy quyền, gắn một lần) ----------
+function act(a, t, e) {
+  const id = Q && Q.items[Q.pos] ? Q.items[Q.pos].id : 0, q = id ? BY[id] : null;
+  const lock = Q && Q.mode !== 'exam' && Q.chk[id] !== undefined;
+  switch (a) {
+    case 'tab': if (view === 'quiz') return; go(t.dataset.v); break;
+    case 'mode': H.mode = t.dataset.v; render(); break;
+    case 'start': startNormal(); break;
+    case 'resume': resume(); break;
+    case 'discard': discard(); break;
+    case 'quick': {
+      const v = t.dataset.v; let ids;
+      if (v === 'wrong') ids = wrongIds(stats()); else ids = Object.keys(S.flags).filter(k => S.flags[k] === (v === 'star' ? 1 : 2) && BY[k]).map(Number);
+      startList(ids.map(i => BY[i]), v === 'wrong' ? 'Các câu hay sai' : v === 'star' ? 'Câu hay/Cần nhớ' : 'Câu phân vân', 'quick', H.mode, 'Tổng hợp'); break;
+    }
+    case 'export': exportJ(); break;
+    case 'exit': exitQuiz(); break;
+    case 'pad': togglePad(); break;
+    case 'pal': if (e.target.closest('[data-stop]') && !e.target.closest('button')) return; palOpen = !palOpen; render(); break;
+    case 'jump': goPos(+t.dataset.i); break;
+    case 'prev': goPos(Q.pos - 1); break;
+    case 'next': goPos(Q.pos + 1); break;
+    case 'main': mainAct(); break;
+    case 'submit': submit(); break;
+    case 'flag': { const v = +t.dataset.v; if (S.flags[id] === v) delete S.flags[id]; else S.flags[id] = v; SE.set('flags', S.flags); render(); break; }
+    case 'pick': if (!Q || lock) return; Q.ans[id] = +t.dataset.i; saveQ(); render(); break;
+    case 'cut': { if (!Q || lock) return; const i = +t.dataset.i, c = Q.cut[id] || (Q.cut[id] = []), k = c.indexOf(i); if (k >= 0) c.splice(k, 1); else c.push(i); saveQ(); render(); break; }
+    case 'tf': { if (!Q || lock) return; const arr = Q.ans[id] || (Q.ans[id] = new Array(q.statements.length).fill(null)); arr[+t.dataset.i] = t.dataset.v === '1'; saveQ(); render(); break; }
+    case 'review': rvF = 'all'; view = 'review'; render(); window.scrollTo(0, 0); break;
+    case 'rvf': rvF = t.dataset.v; render(); break;
+    case 'retryw': { const ids = rev.items.filter(x => x.s < 1).map(x => x.q); startList(ids.map(i => BY[i]), 'Luyện lại câu sai', 'retry', 'practice', 'Tổng hợp'); break; }
+    case 'hview': rev = Object.assign({}, S.history[+t.dataset.i], { fromHist: true }); rvF = 'all'; view = 'review'; render(); window.scrollTo(0, 0); break;
+    case 'hdel': if (confirm('Xóa lượt làm bài này?')) { S.history.splice(+t.dataset.i, 1); SE.set('history', S.history); render(); } break;
+    case 'lbf': lbF = t.dataset.v; render(); break;
+    case 'lbl': lbL = t.dataset.v; render(); break;
+  }
+}
+function onChange(e) {
+  const t = e.target;
+  if (t.id === 'imp') { importJ(t.files && t.files[0]); t.value = ''; return; }
+  const k = t.dataset && t.dataset.k; if (!k) return;
+  if (k === 'shuf') H.shuffle = t.checked;
+  else { const set = k === 'les' ? H.les : H.types, v = t.dataset.v; if (t.checked) set.add(v); else set.delete(v); }
+  render();
+}
+function onInput(e) {
+  const t = e.target;
+  if (t.id === 'sa' && Q) { Q.ans[Q.items[Q.pos].id] = t.value; saveQ(); refreshBar(); }
+  else if (t.id === 'nm') { S.name = t.value.trim(); SE.set('name', S.name); }
+  else if (t.dataset && t.dataset.note) { S.notes[t.dataset.note] = t.value; clearTimeout(noteT); noteT = setTimeout(() => SE.set('notes', S.notes), 400); }
+}
+function onKey(e) {
+  if (view !== 'quiz' || !Q || e.ctrlKey || e.metaKey || e.altKey) return;
+  const tg = e.target, typing = tg && (tg.tagName === 'INPUT' || tg.tagName === 'TEXTAREA'), k = e.key;
+  if (k === 'Enter') { if (tg && tg.tagName === 'TEXTAREA') return; e.preventDefault(); mainAct(); return; }
+  if (typing) return;
+  if (k === ' ') { e.preventDefault(); mainAct(); return; }
+  if (k === 'ArrowLeft') { goPos(Q.pos - 1); return; }
+  if (k === 'ArrowRight') { goPos(Q.pos + 1); return; }
+  const it = Q.items[Q.pos], q = BY[it.id];
+  if (q.type === 'single' && (Q.mode === 'exam' || Q.chk[it.id] === undefined)) {
+    const m = { '1': 0, '2': 1, '3': 2, '4': 3, a: 0, b: 1, c: 2, d: 3 }[String(k).toLowerCase()];
+    if (m !== undefined && m < it.p.length) { Q.ans[it.id] = it.p[m]; saveQ(); render(); }
+  }
+}
+
+// ---------- khởi động ----------
+async function init() {
+  const app = $('#app');
+  app.addEventListener('click', e => { const t = e.target.closest('[data-act]'); if (!t || t.disabled) return; act(t.dataset.act, t, e); });
+  app.addEventListener('change', onChange); app.addEventListener('input', onInput);
+  app.addEventListener('contextmenu', e => { const o = e.target.closest('.opt'); if (o && Q && view === 'quiz' && (Q.mode === 'exam' || Q.chk[Q.items[Q.pos].id] === undefined)) { e.preventDefault(); const x = o.querySelector('.x'); if (x) x.click(); } });
+  document.addEventListener('keydown', onKey);
+  document.addEventListener('visibilitychange', () => { if (document.hidden) onHide(); else onShow(); });
+  window.addEventListener('pagehide', onHide); window.addEventListener('beforeunload', onHide);
+  padInit();
+  try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (e) { }
+  await SE.openDb();
+  for (const k of ['history', 'notes', 'flags', 'name', 'session']) { const v = await SE.get(k); if (v !== undefined && v !== null) S[k] = v; }
+  try { const s = lsGet('nht_session_ls', null); if (s && s.items && (!S.session || (s.savedAt || 0) > (S.session.savedAt || 0))) S.session = s; } catch (e) { }
+  if (S.session && !(S.session.items && S.session.items.length && S.session.items.every(it => BY[it.id]))) S.session = null;
+  if (!Array.isArray(S.history)) S.history = [];
+  render();
+  if (S.session) setTimeout(() => { let ok = false; try { ok = confirm('Bạn có bài đang làm dở (Câu ' + (S.session.pos + 1) + '/' + S.session.items.length + '). Làm tiếp?'); } catch (e) { } if (ok) resume(); }, 80);
+}
+function boot() { init().catch(e => crash(String(e && e.message || e))); }
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+})();
+</script>
+</body>
+</html>
